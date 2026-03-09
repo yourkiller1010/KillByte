@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KillByte · Premium L7 & L4 Infrastructure</title>
+    <meta name="description" content="KillByte - The most powerful Layer 7 & Layer 4 DDoS infrastructure. Engineered for precision, built for dominance.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/terminal.css">
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-content">
+            <div class="preloader-logo">
+                <i class="fas fa-bolt"></i>
+            </div>
+            <div class="preloader-text">KILLBYTE</div>
+            <div class="preloader-bar">
+                <div class="preloader-progress"></div>
+            </div>
+            <div class="preloader-status">Initializing systems...</div>
+        </div>
+    </div>
+
+    <!-- Background Canvas -->
+    <canvas id="bgCanvas" class="bg-canvas"></canvas>
+
+    <!-- Ambient Glow Effects -->
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+    <div class="ambient-glow glow-3"></div>
+
+    <!-- Grid Overlay -->
+    <div class="grid-overlay"></div>
+
+    <!-- Noise Texture -->
+    <div class="noise-overlay"></div>
+
+    <!-- Visitor Notification Toast -->
+    <div class="visitor-toast" id="visitorToast">
+        <div class="toast-icon"><i class="fas fa-user-plus"></i></div>
+        <div class="toast-content">
+            <div class="toast-title">New Visitor Detected</div>
+            <div class="toast-info" id="visitorInfo">IP: Loading...</div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="brand">
+                <div class="brand-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-name">KillByte</span>
+                    <span class="brand-tag">Solutions</span>
+                </div>
+            </a>
+
+            <div class="nav-links">
+                <a href="#home" class="nav-link active" data-section="home">
+                    <span class="nav-link-text">Home</span>
+                    <span class="nav-link-line"></span>
+                </a>
+                <a href="#terminal" class="nav-link" data-section="terminal">
+                    <span class="nav-link-text">Terminal</span>
+                    <span class="nav-link-line"></span>
+                </a>
+                <a href="#tiers" class="nav-link" data-section="tiers">
+                    <span class="nav-link-text">Tiers</span>
+                    <span class="nav-link-line"></span>
+                </a>
+                <a href="#plans" class="nav-link" data-section="plans">
+                    <span class="nav-link-text">Plans</span>
+                    <span class="nav-link-line"></span>
+                </a>
+                <a href="#enterprise" class="nav-link" data-section="enterprise">
+                    <span class="nav-link-text">Enterprise</span>
+                    <span class="nav-link-line"></span>
+                </a>
+                <a href="#support" class="nav-link" data-section="support">
+                    <span class="nav-link-text">Support</span>
+                    <span class="nav-link-line"></span>
+                </a>
+            </div>
+
+            <div class="nav-actions">
+                </div>
+                <button class="nav-btn support-btn" onclick="openSupport()">
+                    <i class="fas fa-headset"></i>
+                    <span>Support</span>
+                </button>
+                <button class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-links">
+            <a href="#home" class="mobile-link" onclick="closeMobileMenu()">Home</a>
+            <a href="#terminal" class="mobile-link" onclick="closeMobileMenu()">Terminal</a>
+            <a href="#tiers" class="mobile-link" onclick="closeMobileMenu()">Tiers</a>
+            <a href="#plans" class="mobile-link" onclick="closeMobileMenu()">Plans</a>
+            <a href="#enterprise" class="mobile-link" onclick="closeMobileMenu()">Enterprise</a>
+            <a href="#support" class="mobile-link" onclick="closeMobileMenu()">Support</a>
+        </div>
+    </div>
+
+    <!-- Support Redirect Overlay -->
+    <div class="redirect-overlay" id="redirectOverlay">
+        <div class="redirect-content">
+            <div class="redirect-icon">
+                <i class="fab fa-telegram"></i>
+            </div>
+            <h2 class="redirect-title">Connecting to Support</h2>
+            <p class="redirect-text">Redirecting to @KillByte_Support_Bot...</p>
+            <div class="redirect-loader">
+                <div class="redirect-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Login Modal -->
+    <div class="modal-overlay" id="adminModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h2 class="modal-title">Authorized Access</h2>
+                <p class="modal-subtitle">Enter credentials to access admin panel</p>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <input type="password" id="adminPassword" class="modal-input" placeholder="Enter password..." onkeypress="if(event.key==='Enter')adminLogin()">
+                    <button class="modal-btn" onclick="adminLogin()">
+                        <i class="fas fa-lock"></i>
+                        <span>Access Panel</span>
+                    </button>
+                </div>
+                <button class="modal-cancel" onclick="closeAdminModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-sidebar">
+            <div class="admin-brand">
+                <div class="admin-icon"><i class="fas fa-bolt"></i></div>
+                <span>KillByte Admin</span>
+            </div>
+            <nav class="admin-nav">
+                <a href="#" class="admin-nav-item active" onclick="switchAdminTab('dashboard', this)">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="admin-nav-item" onclick="switchAdminTab('visitors', this)">
+                    <i class="fas fa-users"></i>
+                    <span>Visitors</span>
+                </a>
+                <a href="#" class="admin-nav-item" onclick="switchAdminTab('telegram', this)">
+                    <i class="fab fa-telegram"></i>
+                    <span>Telegram</span>
+                </a>
+                <a href="#" class="admin-nav-item" onclick="switchAdminTab('settings', this)">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+            <button class="admin-logout" onclick="adminLogout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+        <div class="admin-main">
+            <!-- Dashboard Tab -->
+            <div class="admin-tab active" id="tab-dashboard">
+                <div class="admin-header">
+                    <h1>Dashboard</h1>
+                    <div class="admin-status">
+                        <span class="status-dot online"></span>
+                        <span>System Online</span>
+                    </div>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-users"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="totalVisitors">0</div>
+                            <div class="stat-label">Total Visitors</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-eye"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="todayVisitors">0</div>
+                            <div class="stat-label">Today's Visitors</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-broadcast-tower"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="telegramStatus">OFF</div>
+                            <div class="stat-label">Telegram Bot</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-server"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-value">240+</div>
+                            <div class="stat-label">Active servers</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="admin-section">
+                    <h3><i class="fas fa-chart-area"></i> Visitor Analytics</h3>
+                    <div class="chart-container">
+                        <canvas id="visitorChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visitors Tab -->
+            <div class="admin-tab" id="tab-visitors">
+                <div class="admin-header">
+                    <h1>Visitor Log</h1>
+                    <button class="btn-clear" onclick="clearVisitors()">
+                        <i class="fas fa-trash"></i> Clear All
+                    </button>
+                </div>
+                <div class="visitor-list" id="visitorList">
+                    <!-- Visitor items will be added here -->
+                </div>
+            </div>
+
+            <!-- Telegram Tab -->
+            <div class="admin-tab" id="tab-telegram">
+                <div class="admin-header">
+                    <h1>Telegram Configuration</h1>
+                </div>
+                <div class="config-card">
+                    <h3><i class="fab fa-telegram"></i> Bot Settings</h3>
+                    <div class="form-group">
+                        <label>Bot Token</label>
+                        <input type="text" id="botToken" class="form-input" placeholder="123456789:ABCdefGHIjklMNOpqrsTUVwxyz">
+                    </div>
+                    <div class="form-group">
+                        <label>Chat ID</label>
+                        <input type="text" id="chatId" class="form-input" placeholder="-1001234567890">
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="notifyEnabled" checked>
+                            <span>Enable visitor notifications</span>
+                        </label>
+                    </div>
+                    <button class="btn-save" onclick="saveTelegramConfig()">
+                        <i class="fas fa-save"></i> Save Configuration
+                    </button>
+                </div>
+                <div class="config-card">
+                    <h3><i class="fas fa-info-circle"></i> Setup Guide</h3>
+                    <ol class="setup-steps">
+                        <li>Message <a href="https://t.me/BotFather" target="_blank">@BotFather</a> on Telegram</li>
+                        <li>Create new bot with <code>/newbot</code> command</li>
+                        <li>Copy the bot token provided</li>
+                        <li>Start a chat with your bot</li>
+                        <li>Use <a href="https://t.me/userinfobot" target="_blank">@userinfobot</a> to get your Chat ID</li>
+                        <li>Paste both values above and save</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div class="admin-tab" id="tab-settings">
+                <div class="admin-header">
+                    <h1>Site Settings</h1>
+                </div>
+                <div class="config-card">
+                    <h3><i class="fas fa-database"></i> Data Management</h3>
+                    <button class="btn-danger" onclick="clearAllData()">
+                        <i class="fas fa-exclamation-triangle"></i> Clear All Data
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-crown"></i>
+                    <span>Top #1 Market Services</span>
+                </div>
+                <h1 class="hero-title">
+                    <span class="title-line">KillByte Solutions</span>
+                    <span class="title-line gradient">Power Infrastructure</span>
+                </h1>
+                <p class="hero-description">
+                    The most powerful Layer 7 & Layer 4 DDoS infrastructure. 
+                    Engineered for precision, built for dominance.
+                    <span class="highlight">@rankflood</span> Best L7 & L4 DDoS
+                </p>
+                <div class="hero-actions">
+                    <a href="#plans" class="btn btn-primary">
+                        <span>View Plans</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <button class="btn btn-secondary" onclick="openSupport()">
+                        <i class="fab fa-telegram"></i>
+                        <span>Get Support</span>
+                    </button>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="stat-number" data-count="630">0</div>
+                        <div class="stat-suffix">Gbps</div>
+                        <div class="stat-label">L4 Capacity</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="stat-number" data-count="72">0</div>
+                        <div class="stat-suffix">M+</div>
+                        <div class="stat-label">L7 Requests/sec</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="stat-number" data-count="99.9">0</div>
+                        <div class="stat-suffix">%</div>
+                        <div class="stat-label">Uptime</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="stat-number" data-count="240">0</div>
+                        <div class="stat-suffix">+</div>
+                        <div class="stat-label">Active servers</div>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <div class="scroll-mouse">
+                    <div class="scroll-wheel"></div>
+                </div>
+                <span>Scroll to explore</span>
+            </div>
+        </section>
+
+       <!-- Terminal Section -->
+<section id="terminal" class="terminal-section">
+    <div class="section-header">
+        <span class="section-label">System Status</span>
+        <h2 class="section-title">Live Terminal</h2>
+        <p class="section-subtitle">Real-time infrastructure monitoring</p>
+    </div>
+    <div class="terminal-wrapper">
+        <div class="mac-terminal">
+            <div class="terminal-header">
+                <div class="terminal-buttons">
+                    <span class="terminal-btn close"></span>
+                    <span class="terminal-btn minimize"></span>
+                    <span class="terminal-btn maximize"></span>
+                </div>
+                <div class="terminal-title">
+                    <i class="fas fa-terminal"></i>
+                    killbyte@server:~ — zsh
+                </div>
+                <div class="terminal-actions">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+            <div class="terminal-body" id="terminalBody">
+                <div class="terminal-line welcome">
+                    <span class="terminal-text">Last login: <span id="loginTime"></span> from 192.168.1.100</span>
+                </div>
+                <div class="terminal-line welcome">
+                    <span class="terminal-text ascii-art">
+                    </span>
+                </div>
+                <div id="animatedAscii"></div>
+                <div class="terminal-line welcome">
+                    <span class="terminal-text success">✓ Connected to KillByte Infrastructure</span>
+                </div>
+                <div class="terminal-line prompt-line">
+                    <span class="prompt">killbyte@server:~$</span>
+                    <span class="command" id="typingCommand"></span>
+                    <span class="cursor" id="cursor"></span>
+                </div>
+                <div class="terminal-output" id="terminalOutput"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+// Terminal animation and clear command functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const loginTimeElement = document.getElementById('loginTime');
+    const now = new Date();
+    loginTimeElement.textContent = now.toLocaleString();
+    
+    // Animated ASCII art with colors
+    const asciiLines = [
+        { text: '\x1b[38;5;196m      __  ___ \x1b[0m', delay: 100 },
+        { text: '\x1b[38;5;196m     |  |/  / \x1b[0m  \x1b[1mKillByte Solutions\x1b[0m (v2.5)', delay: 100 },
+        { text: '\x1b[38;5;196m     |  \'  /  \x1b[0m  Developed by \x1b[38;5;196m@RankFlood\x1b[0m', delay: 100 },
+        { text: '\x1b[38;5;196m     |    <   \x1b[0m  Join our Telegram channel: \x1b[38;5;196mhttps://t.me/KillByteSolution\x1b[0m', delay: 100 },
+        { text: '\x1b[38;5;196m     |  .  \\  \x1b[0m  Type \x1b[38;5;196m"help"\x1b[0m to view the command list', delay: 100 },
+        { text: '\x1b[38;5;196m     |__|\\__\\ \x1b[0m', delay: 100 },
+        { text: '', delay: 100 }
+    ];
+    
+    const animatedAscii = document.getElementById('animatedAscii');
+    
+    // Convert ANSI color codes to HTML spans
+    function ansiToHtml(text) {
+        if (!text) return '';
+        
+        // Handle color codes
+        return text
+            .replace(/\x1b\[38;5;196m/g, '<span style="color: #ff0000;">')
+            .replace(/\x1b\[1m/g, '<span style="font-weight: bold;">')
+            .replace(/\x1b\[0m/g, '</span>')
+            .replace(/\x1b\[0m/g, '</span>');
+    }
+    
+    // Animate ASCII art line by line
+    let lineIndex = 0;
+    
+    function animateAscii() {
+        if (lineIndex < asciiLines.length) {
+            const line = asciiLines[lineIndex];
+            
+            if (line.text) {
+                const lineElement = document.createElement('div');
+                lineElement.className = 'terminal-line';
+                lineElement.innerHTML = `<span class="terminal-text">${ansiToHtml(line.text)}</span>`;
+                animatedAscii.appendChild(lineElement);
+            }
+            
+            lineIndex++;
+            
+            // Scroll to bottom
+            const terminalBody = document.getElementById('terminalBody');
+            terminalBody.scrollTop = terminalBody.scrollHeight;
+            
+            setTimeout(animateAscii, line.delay);
+        }
+    }
+    
+    // Start animation after a short delay
+    setTimeout(animateAscii, 500);
+    
+    // Clear command functionality
+    const terminalOutput = document.getElementById('terminalOutput');
+    const commandSpan = document.getElementById('typingCommand');
+    const cursor = document.getElementById('cursor');
+    const terminalBody = document.getElementById('terminalBody');
+    
+    let currentCommand = '';
+    let commands = [];
+    let commandHistory = [];
+    let historyIndex = -1;
+    
+    // Available commands
+    const availableCommands = ['help', 'clear', 'status', 'whoami', 'date', 'ls'];
+    
+    // Command descriptions
+    const commandDescriptions = {
+        'help': 'Display available commands',
+        'clear': 'Clear the terminal screen',
+        'status': 'Show system status',
+        'whoami': 'Display current user',
+        'date': 'Show current date and time',
+        'ls': 'List directory contents'
+    };
+    
+    // Handle keydown events
+    document.addEventListener('keydown', function(e) {
+        // Only handle if typing command is focused (or we can make it always active)
+        if (e.key === 'Escape') {
+            // Clear current command
+            currentCommand = '';
+            commandSpan.textContent = currentCommand;
+            return;
+        }
+        
+        if (e.key === 'Enter') {
+            // Execute command
+            executeCommand(currentCommand);
+            currentCommand = '';
+            commandSpan.textContent = currentCommand;
+            return;
+        }
+        
+        if (e.key === 'Backspace') {
+            // Remove last character
+            currentCommand = currentCommand.slice(0, -1);
+            commandSpan.textContent = currentCommand;
+            return;
+        }
+        
+        if (e.key === 'ArrowUp') {
+            // Navigate command history
+            if (commandHistory.length > 0) {
+                if (historyIndex < commandHistory.length - 1) {
+                    historyIndex++;
+                    currentCommand = commandHistory[commandHistory.length - 1 - historyIndex];
+                } else {
+                    historyIndex = commandHistory.length - 1;
+                    currentCommand = commandHistory[0];
+                }
+                commandSpan.textContent = currentCommand;
+            }
+            return;
+        }
+        
+        if (e.key === 'ArrowDown') {
+            // Navigate command history
+            if (historyIndex > 0) {
+                historyIndex--;
+                currentCommand = commandHistory[commandHistory.length - 1 - historyIndex];
+            } else {
+                historyIndex = -1;
+                currentCommand = '';
+            }
+            commandSpan.textContent = currentCommand;
+            return;
+        }
+        
+        // Ignore modifier keys
+        if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+            currentCommand += e.key;
+            commandSpan.textContent = currentCommand;
+        }
+    });
+    
+    function executeCommand(cmd) {
+        if (!cmd.trim()) {
+            // Empty command
+            addOutput('', '');
+            return;
+        }
+        
+        // Add to command history
+        if (cmd.trim()) {
+            commandHistory.push(cmd.trim());
+            historyIndex = -1;
+        }
+        
+        const args = cmd.trim().split(' ');
+        const command = args[0].toLowerCase();
+        
+        // Execute command
+        switch(command) {
+            case 'clear':
+                clearTerminal();
+                break;
+            case 'help':
+                showHelp();
+                break;
+            case 'status':
+                showStatus();
+                break;
+            case 'whoami':
+                addOutput('killbyte', 'whoami');
+                break;
+            case 'date':
+                addOutput(new Date().toString(), 'date');
+                break;
+            case 'ls':
+                addOutput('README.md  config.json  src/  assets/', 'ls');
+                break;
+            default:
+                addOutput(`Command not found: ${command}. Type 'help' for available commands.`, cmd);
+        }
+    }
+    
+    function addOutput(text, command) {
+        const outputDiv = document.createElement('div');
+        outputDiv.className = 'terminal-output-line';
+        
+        if (command) {
+            // Show the command that was entered
+            const promptLine = document.createElement('div');
+            promptLine.className = 'terminal-line';
+            promptLine.innerHTML = `<span class="prompt">killbyte@server:~$</span> <span class="command">${command}</span>`;
+            terminalOutput.appendChild(promptLine);
+        }
+        
+        // Show the output
+        const outputLine = document.createElement('div');
+        outputLine.className = 'terminal-line output';
+        
+        // Handle colored output if needed
+        if (typeof text === 'string' && text.includes('\x1b')) {
+            outputLine.innerHTML = `<span class="terminal-text">${ansiToHtml(text)}</span>`;
+        } else {
+            outputLine.innerHTML = `<span class="terminal-text">${text}</span>`;
+        }
+        
+        terminalOutput.appendChild(outputLine);
+        
+        // Scroll to bottom
+        terminalBody.scrollTop = terminalBody.scrollHeight;
+    }
+    
+    function clearTerminal() {
+        // Clear all terminal output
+        terminalOutput.innerHTML = '';
+        
+        // Also clear the animated ASCII area
+        animatedAscii.innerHTML = '';
+        
+        // Re-add the welcome message and animated ASCII
+        setTimeout(() => {
+            // Reset and replay animation
+            lineIndex = 0;
+            animateAscii();
+            
+            const welcomeLine = document.createElement('div');
+            welcomeLine.className = 'terminal-line welcome';
+            welcomeLine.innerHTML = '<span class="terminal-text success">✓ Connected to KillByte Infrastructure</span>';
+            terminalOutput.appendChild(welcomeLine);
+        }, 100);
+    }
+    
+    function showHelp() {
+        let helpText = 'Available commands:\n';
+        for (const cmd of availableCommands) {
+            helpText += `  ${cmd.padEnd(10)} - ${commandDescriptions[cmd]}\n`;
+        }
+        addOutput(helpText, 'help');
+    }
+    
+    function showStatus() {
+        const status = `
+System Status:
+  CPU Usage: 23%
+  Memory Usage: 1.2GB/8GB
+  Disk Usage: 45%
+  Uptime: 14 days
+  Active Connections: 3
+        `;
+        addOutput(status, 'status');
+    }
+});
+</script>
+
+<style>
+.terminal-output-line {
+    margin-bottom: 0.5rem;
+}
+
+.terminal-line.output {
+    color: #e0e0e0;
+    white-space: pre-wrap;
+}
+
+.terminal-text [style*="color: #ff0000"] {
+    color: #ff0000 !important;
+}
+
+.terminal-text [style*="font-weight: bold"] {
+    font-weight: bold !important;
+}
+</style>
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="about-grid">
+                <div class="about-content">
+                    <span class="section-label">About Us</span>
+                    <h2 class="section-title">We Are <span class="gradient">KillByte</span></h2>
+                    <p class="about-text">
+                        At KillByte, we specialize in providing high-powered DDoS services, particularly 
+                        <strong>Layer 7 (L7)</strong>, with the ability to handle the most complex and targeted attacks. 
+                        We can reach up to <span class="highlight">630 Gbps</span>, delivering immense force to 
+                        overwhelm and disrupt any target.
+                    </p>
+                    <p class="about-text">
+                        Our state-of-the-art infrastructure allows us to execute precision strikes with up to 
+                        <span class="highlight">72 million requests per second</span>, ensuring maximum impact 
+                        with unmatched reliability.
+                    </p>
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <i class="fas fa-bolt"></i>
+                            <span>Instant Deployment</span>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Stealth Methods</span>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-globe"></i>
+                            <span>Global servers</span>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-headset"></i>
+                            <span>24/7 Support</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="visual-card">
+                        <div class="visual-header">
+                            <i class="fas fa-server"></i>
+                            <span>Infrastructure Status</span>
+                        </div>
+                        <div class="visual-content">
+                            <div class="status-item">
+                                <span class="status-name">L7 Power</span>
+                                <div class="status-bar">
+                                    <div class="status-fill" style="width: 95%"></div>
+                                </div>
+                                <span class="status-value">95%</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-name">L4 Output</span>
+                                <div class="status-bar">
+                                    <div class="status-fill" style="width: 92%"></div>
+                                </div>
+                                <span class="status-value">92%</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-name">server Health</span>
+                                <div class="status-bar">
+                                    <div class="status-fill" style="width: 98%"></div>
+                                </div>
+                                <span class="status-value">98%</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-name">Network Latency</span>
+                                <div class="status-bar">
+                                    <div class="status-fill low" style="width: 15%"></div>
+                                </div>
+                                <span class="status-value">12ms</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tiers Section -->
+        <section id="tiers" class="tiers-section">
+            <div class="section-header">
+                <span class="section-label">Performance</span>
+                <h2 class="section-title">Power Tiers</h2>
+                <p class="section-subtitle">Choose your operational level</p>
+            </div>
+            <div class="tier-tabs">
+                <button class="tier-tab active" data-tier="standard">Standard</button>
+                <button class="tier-tab" data-tier="vip">VIP</button>
+                <button class="tier-tab" data-tier="private">Private</button>
+            </div>
+            <div class="tier-contents">
+                <div class="tier-content active" id="tier-standard">
+                    <div class="tier-card">
+                        <div class="tier-header">
+                            <div class="tier-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <h3 class="tier-name">Standard Tier</h3>
+                            <p class="tier-desc">Entry-level power for testing environments</p>
+                        </div>
+                        <div class="tier-specs">
+                            <div class="tier-spec">
+                                <i class="fas fa-check"></i>
+                                <span><strong>1M</strong> L7 Requests/sec</span>
+                            </div>
+                            <div class="tier-spec">
+                                <i class="fas fa-check"></i>
+                                <span><strong>70+</strong> Gbps L4 Output</span>
+                            </div>
+                            <div class="tier-spec">
+                                <i class="fas fa-check"></i>
+                                <span><strong>1</strong> Concurrent Slot</span>
+                            </div>
+                            <div class="tier-spec">
+                                <i class="fas fa-check"></i>
+                                <span>Standard Methods</span>
+                            </div>
+                        </div>
+                        <div class="tier-price">$30</div>
+                        <button class="btn btn-primary" onclick="buyPlan('standard')">Get Started</button>
+                    </div>
+                </div>
+                <div class="tier-content" id="tier-vip">
+                    <div class="tier-card featured">
+                        <div class="tier-badge">MOST POPULAR</div>
+                        <div class="tier-header">
+                            <div class="tier-icon">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                            <h3 class="tier-name">VIP Tier</h3>
+                            <p class="tier-desc">Professional grade with enhanced capabilities</p>
+                        </div>
+                        <div class="tier-specs">
+                            <div class="tier-spec">
+                                <i class="fas fa-check"></i>
+                                <span><strong>30M</strong> L7 Requests/sec</span>
+                            </div>
+                            <div class="tier-spec">
+                                <i class="fas fa-check"></i>
+                                <span><strong>150+</strong> Gbps L4 Output</span>
+                            </div>
+                            <div class="tier-spec">
+                                <i class="fas fa-check"></i>
+                                <span><strong>2</strong> Concurrent Slots</span>
+                            </div>
+                            <div class="tier-spec">
+                                <i class="fas fa-check"></i>
+                                <span>VIP Methods + API Access</span>
+                            </div>
+                        </div>
+                        <div class="tier-price">$65</div>
+                        <button class="btn btn-primary" onclick="buyPlan('vip')">Get VIP</button>
+                    </div>
+                </div>
+                <div class="tier-content" id="tier-private">
+                    <div class="tier-card">
+                        <div class="tier-header">
+                            <div class="tier-icon">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <h3 class="tier-name">Private Tier</h3>
+                            <p class="tier-desc">Exclusive access to restricted infrastructure</p>
+                        </div>
+                        <div class="tier-specs">
+                            <div class="tier-spec">
+                                <i class="fas fa-check"></i>
+                                <span><strong>45M</strong> L7 Requests/sec</span>
+                            </div>
+                            <div class="tier-spec">
+                                <i class="fas fa-check"></i>
+                                <span><strong>200+</strong> Gbps L4 Output</span>
+                            </div>
+                            <div class="tier-spec">
+                                <i class="fas fa-check"></i>
+                                <span><strong>4</strong> Concurrent Slots</span>
+                            </div>
+                            <div class="tier-spec">
+                                <i class="fas fa-check"></i>
+                                <span>Private servers + L7 Bypasses</span>
+                            </div>
+                        </div>
+                        <div class="tier-price">$160</div>
+                        <button class="btn btn-primary" onclick="buyPlan('private')">Get Private</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Plans Section -->
+        <section id="plans" class="plans-section">
+            <div class="section-header">
+                <span class="section-label">Pricing</span>
+                <h2 class="section-title">Service Plans</h2>
+                <p class="section-subtitle">Flexible options for every requirement</p>
+            </div>
+            
+            <h3 class="plans-category">Monthly Plans</h3>
+            <div class="plans-grid">
+                <div class="plan-card" onclick="buyPlan('starter')">
+                    <div class="plan-header">
+                        <div class="plan-info">
+                            <h4 class="plan-name">Starter Surge</h4>
+                            <span class="plan-badge">7 Days</span>
+                        </div>
+                    </div>
+                    <div class="plan-price">$30</div>
+                    <div class="plan-specs">
+                        <div class="plan-spec">
+                            <span class="spec-label">Concurrent</span>
+                            <span class="spec-value">1 Slot</span>
+                        </div>
+                        <div class="plan-spec">
+                            <span class="spec-label">Duration</span>
+                            <span class="spec-value">60s</span>
+                        </div>
+                    </div>
+                    <button class="plan-btn">Select Plan</button>
+                </div>
+
+                <div class="plan-card" onclick="buyPlan('edge')">
+                    <div class="plan-header">
+                        <div class="plan-info">
+                            <h4 class="plan-name">Edge Strike</h4>
+                            <span class="plan-badge">30 Days</span>
+                        </div>
+                    </div>
+                    <div class="plan-price">$65</div>
+                    <div class="plan-specs">
+                        <div class="plan-spec">
+                            <span class="spec-label">Concurrent</span>
+                            <span class="spec-value">1 Slot</span>
+                        </div>
+                        <div class="plan-spec">
+                            <span class="spec-label">Duration</span>
+                            <span class="spec-value">120s</span>
+                        </div>
+                    </div>
+                    <button class="plan-btn">Select Plan</button>
+                </div>
+
+                <div class="plan-card" onclick="buyPlan('dual')">
+                    <div class="plan-header">
+                        <div class="plan-info">
+                            <h4 class="plan-name">Dual Surge</h4>
+                            <span class="plan-badge">30 Days</span>
+                        </div>
+                    </div>
+                    <div class="plan-price">$85</div>
+                    <div class="plan-specs">
+                        <div class="plan-spec">
+                            <span class="spec-label">Concurrent</span>
+                            <span class="spec-value">2 Slots</span>
+                        </div>
+                        <div class="plan-spec">
+                            <span class="spec-label">Duration</span>
+                            <span class="spec-value">120s</span>
+                        </div>
+                    </div>
+                    <button class="plan-btn">Select Plan</button>
+                </div>
+
+                <div class="plan-card featured" onclick="buyPlan('phantom')">
+                    <div class="plan-header">
+                        <div class="plan-info">
+                            <h4 class="plan-name">Phantom Force</h4>
+                            <span class="plan-badge vip">VIP</span>
+                        </div>
+                    </div>
+                    <div class="plan-price">$160</div>
+                    <div class="plan-specs">
+                        <div class="plan-spec">
+                            <span class="spec-label">Concurrent</span>
+                            <span class="spec-value">3 Slots</span>
+                        </div>
+                        <div class="plan-spec">
+                            <span class="spec-label">Duration</span>
+                            <span class="spec-value">200s</span>
+                        </div>
+                    </div>
+                    <button class="plan-btn">Select Plan</button>
+                </div>
+
+                <div class="plan-card" onclick="buyPlan('shadow')">
+                    <div class="plan-header">
+                        <div class="plan-info">
+                            <h4 class="plan-name">Shadow Blade</h4>
+                            <span class="plan-badge vip">VIP</span>
+                        </div>
+                    </div>
+                    <div class="plan-price">$280</div>
+                    <div class="plan-specs">
+                        <div class="plan-spec">
+                            <span class="spec-label">Concurrent</span>
+                            <span class="spec-value">4 Slots</span>
+                        </div>
+                        <div class="plan-spec">
+                            <span class="spec-label">Duration</span>
+                            <span class="spec-value">250s</span>
+                        </div>
+                    </div>
+                    <button class="plan-btn">Select Plan</button>
+                </div>
+
+                <div class="plan-card" onclick="buyPlan('dominion')">
+                    <div class="plan-header">
+                        <div class="plan-info">
+                            <h4 class="plan-name">Dominion Control</h4>
+                            <span class="plan-badge vip">VIP+</span>
+                        </div>
+                    </div>
+                    <div class="plan-price">$380</div>
+                    <div class="plan-specs">
+                        <div class="plan-spec">
+                            <span class="spec-label">Concurrent</span>
+                            <span class="spec-value">4 Slots</span>
+                        </div>
+                        <div class="plan-spec">
+                            <span class="spec-label">Duration</span>
+                            <span class="spec-value">250s</span>
+                        </div>
+                    </div>
+                    <button class="plan-btn">Select Plan</button>
+                </div>
+            </div>
+
+            <h3 class="plans-category">Daily Blasts</h3>
+            <div class="plans-grid daily">
+                <div class="plan-card" onclick="buyPlan('burst')">
+                    <div class="plan-header">
+                        <div class="plan-info">
+                            <h4 class="plan-name">Burst Entry</h4>
+                            <span class="plan-badge">Daily</span>
+                        </div>
+                    </div>
+                    <div class="plan-price">$15</div>
+                    <div class="plan-specs">
+                        <div class="plan-spec">
+                            <span class="spec-label">Concurrent</span>
+                            <span class="spec-value">1 Slot</span>
+                        </div>
+                        <div class="plan-spec">
+                            <span class="spec-label">Duration</span>
+                            <span class="spec-value">120s</span>
+                        </div>
+                    </div>
+                    <button class="plan-btn">Select Plan</button>
+                </div>
+
+                <div class="plan-card" onclick="buyPlan('daggers')">
+                    <div class="plan-header">
+                        <div class="plan-info">
+                            <h4 class="plan-name">Dual Daggers</h4>
+                            <span class="plan-badge">Daily</span>
+                        </div>
+                    </div>
+                    <div class="plan-price">$22</div>
+                    <div class="plan-specs">
+                        <div class="plan-spec">
+                            <span class="spec-label">Concurrent</span>
+                            <span class="spec-value">2 Slots</span>
+                        </div>
+                        <div class="plan-spec">
+                            <span class="spec-label">Duration</span>
+                            <span class="spec-value">120s</span>
+                        </div>
+                    </div>
+                    <button class="plan-btn">Select Plan</button>
+                </div>
+
+                <div class="plan-card" onclick="buyPlan('crimson')">
+                    <div class="plan-header">
+                        <div class="plan-info">
+                            <h4 class="plan-name">Crimson Reaper</h4>
+                            <span class="plan-badge vip">VIP</span>
+                        </div>
+                    </div>
+                    <div class="plan-price">$40</div>
+                    <div class="plan-specs">
+                        <div class="plan-spec">
+                            <span class="spec-label">Concurrent</span>
+                            <span class="spec-value">2 Slots</span>
+                        </div>
+                        <div class="plan-spec">
+                            <span class="spec-label">Duration</span>
+                            <span class="spec-value">250s</span>
+                        </div>
+                    </div>
+                    <button class="plan-btn">Select Plan</button>
+                </div>
+
+                <div class="plan-card" onclick="buyPlan('overlord')">
+                    <div class="plan-header">
+                        <div class="plan-info">
+                            <h4 class="plan-name">Overlord Strike</h4>
+                            <span class="plan-badge vip">VIP+</span>
+                        </div>
+                    </div>
+                    <div class="plan-price">$160</div>
+                    <div class="plan-specs">
+                        <div class="plan-spec">
+                            <span class="spec-label">Concurrent</span>
+                            <span class="spec-value">2 Slots</span>
+                        </div>
+                        <div class="plan-spec">
+                            <span class="spec-label">Duration</span>
+                            <span class="spec-value">250s</span>
+                        </div>
+                    </div>
+                    <button class="plan-btn">Select Plan</button>
+                </div>
+            </div>
+
+            <div class="addons-section">
+                <h3 class="addons-title">Add-ons</h3>
+                <div class="addons-grid">
+                    <div class="addon-chip" onclick="buyAddon('concurrent')">
+                        <i class="fas fa-plus"></i>
+                        <span>+1 Concurrent</span>
+                        <span class="addon-price">$40</span>
+                    </div>
+                    <div class="addon-chip" onclick="buyAddon('duration')">
+                        <i class="fas fa-clock"></i>
+                        <span>+60s Duration</span>
+                        <span class="addon-price">$10</span>
+                    </div>
+                    <div class="addon-chip" onclick="buyAddon('api')">
+                        <i class="fas fa-code"></i>
+                        <span>API Gateway</span>
+                        <span class="addon-price">$50</span>
+                    </div>
+                    <div class="addon-chip" onclick="buyAddon('cooldown')">
+                        <i class="fas fa-ban"></i>
+                        <span>Zero Cooldown</span>
+                        <span class="addon-price">$15</span>
+                    </div>
+                    <div class="addon-chip" onclick="buyAddon('private')">
+                        <i class="fas fa-lock"></i>
+                        <span>Private Access</span>
+                        <span class="addon-price">$80</span>
+                    </div>
+                    <div class="addon-chip" onclick="buyAddon('vip')">
+                        <i class="fas fa-star"></i>
+                        <span>VIP Upgrade</span>
+                        <span class="addon-price">$25</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Enterprise Section -->
+        <section id="enterprise" class="enterprise-section">
+            <div class="section-header">
+                <span class="section-label">Enterprise</span>
+                <h2 class="section-title">Elite Solutions</h2>
+                <p class="section-subtitle">Maximum power for maximum impact</p>
+            </div>
+            <div class="enterprise-grid">
+                <div class="enterprise-card">
+                    <div class="enterprise-header">
+                        <div class="enterprise-icon">
+                            <i class="fas fa-atom"></i>
+                        </div>
+                        <div class="enterprise-info">
+                            <h3 class="enterprise-name">Enterprise Reactor</h3>
+                            <span class="enterprise-badge">$1200/mo</span>
+                        </div>
+                    </div>
+                    <p class="enterprise-desc">Full-Scale DDoS Domination</p>
+                    <div class="enterprise-price">$1200<span>/month</span></div>
+                    <ul class="enterprise-features">
+                        <li><i class="fas fa-check"></i> 35M+ Rq/s Layer 7 Power</li>
+                        <li><i class="fas fa-check"></i> 150+ Gbps L4 Flood Capability</li>
+                        <li><i class="fas fa-check"></i> Multi-Target Parallel Handling</li>
+                        <li><i class="fas fa-check"></i> API-Optimized Deployment</li>
+                        <li><i class="fas fa-check"></i> Priority Slot Execution</li>
+                        <li><i class="fas fa-check"></i> Zero Packet Loss</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="buyPlan('reactor')">Configure</button>
+                </div>
+
+                <div class="enterprise-card ultimate">
+                    <div class="enterprise-header">
+                        <div class="enterprise-icon">
+                            <i class="fas fa-meteor"></i>
+                        </div>
+                        <div class="enterprise-info">
+                            <h3 class="enterprise-name">Hellstorm Protocol</h3>
+                            <span class="enterprise-badge dark">$1450/mo</span>
+                        </div>
+                    </div>
+                    <p class="enterprise-desc">The Final Evolution</p>
+                    <div class="enterprise-price">$1450<span>/month</span></div>
+                    <ul class="enterprise-features">
+                        <li><i class="fas fa-check"></i> 45M+ Rq/s L7 Floods</li>
+                        <li><i class="fas fa-check"></i> 200+ Gbps Raw L4 Output</li>
+                        <li><i class="fas fa-check"></i> VIP-Only Private servers</li>
+                        <li><i class="fas fa-check"></i> Obfuscation Methods</li>
+                        <li><i class="fas fa-check"></i> Exclusive L7-KILLER Payloads</li>
+                        <li><i class="fas fa-check"></i> Zero-Lag Launch Time</li>
+                    </ul>
+                    <button class="btn btn-light" onclick="buyPlan('hellstorm')">Configure</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Support Section -->
+        <section id="support" class="support-section">
+            <div class="section-header">
+                <span class="section-label">Assistance</span>
+                <h2 class="section-title">Get Support</h2>
+                <p class="section-subtitle">24/7 Professional Assistance</p>
+            </div>
+            <div class="support-grid">
+                <a href="https://t.me/KillByte_Support_Bot" target="_blank" class="support-card">
+                    <div class="support-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="support-title">Telegram Bot</h3>
+                    <p class="support-desc">Automated ordering & instant delivery</p>
+                    <span class="support-status online">
+                        <span class="status-dot"></span>
+                        24/7 Online
+                    </span>
+                </a>
+                <a href="https://t.me/rankflood" target="_blank" class="support-card">
+                    <div class="support-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3 class="support-title">Direct Admin</h3>
+                    <p class="support-desc">Contact @rankflood for sales & support</p>
+                    <span class="support-status vip">VIP Support</span>
+                </a>
+                <button class="support-card" onclick="openSupport()">
+                    <div class="support-icon">
+                        <i class="fab fa-telegram"></i>
+                    </div>
+                    <h3 class="support-title">Support Center</h3>
+                    <p class="support-desc">Get help from our support team</p>
+                    <span class="support-status online">
+                        <span class="status-dot"></span>
+                        Online Now
+                    </span>
+                </button>
+            </div>
+
+            <div class="channels-section">
+                <h3 class="channels-title">Official Channels</h3>
+                <div class="channels-list">
+                    <a href="https://t.me/+_Nyb8D6jsHJiY2Qx" target="_blank" class="channel-item">
+                        <div class="channel-icon">
+                            <i class="fab fa-telegram"></i>
+                        </div>
+                        <div class="channel-info">
+                            <span class="channel-name">KillByte Solutions</span>
+                            <span class="channel-desc">Main Channel</span>
+                        </div>
+                        <i class="fas fa-chevron-right channel-arrow"></i>
+                    </a>
+                    <a href="https://t.me/addlist/TU8lnQMAZMk0OTU1" target="_blank" class="channel-item">
+                        <div class="channel-icon">
+                            <i class="fas fa-list"></i>
+                        </div>
+                        <div class="channel-info">
+                            <span class="channel-name">KillByte Addlist</span>
+                            <span class="channel-desc">Group Directory</span>
+                        </div>
+                        <i class="fas fa-chevron-right channel-arrow"></i>
+                    </a>
+                    <a href="https://t.me/killbytebackup" target="_blank" class="channel-item">
+                        <div class="channel-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="channel-info">
+                            <span class="channel-name">KillByte Backup</span>
+                            <span class="channel-desc">Contingency</span>
+                        </div>
+                        <i class="fas fa-chevron-right channel-arrow"></i>
+                    </a>
+                    <a href="https://t.me/KillBytePowerShow" target="_blank" class="channel-item">
+                        <div class="channel-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="channel-info">
+                            <span class="channel-name">Power Proofs</span>
+                            <span class="channel-desc">Performance Proof</span>
+                        </div>
+                        <i class="fas fa-chevron-right channel-arrow"></i>
+                    </a>
+                    <a href="https://t.me/killbytevouch" target="_blank" class="channel-item">
+                        <div class="channel-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="channel-info">
+                            <span class="channel-name">KillByte Vouches</span>
+                            <span class="channel-desc">Customer Reviews</span>
+                        </div>
+                        <i class="fas fa-chevron-right channel-arrow"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <span class="footer-name">KillByte</span>
+            </div>
+            <p class="footer-text">Premium infrastructure for elite operators.</p>
+            <div class="footer-links">
+                <button onclick="showTerms()">Terms</button>
+                <button onclick="showPrivacy()">Privacy</button>
+                <button onclick="openAdminModal()">Admin</button>
+            </div>
+            <p class="footer-copy">
+                &copy; 2026 KillByte Solutions. All rights reserved. | Admin: <span class="highlight">@rankflood</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/terminal.js"></script>
+    <script src="js/visitor-tracker.js"></script>
+    <script src="js/telegram.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
