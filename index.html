@@ -30,18 +30,32 @@
 <!-- ADD THE STYLE HERE - AFTER ALL OTHER CSS -->
 <style>
     @media screen and (max-width: 768px) {
-        .nav-container { gap: 5px; }
-        .brand { gap: 5px; max-width: 60%; }
-        .brand-icon img { height: 30px !important; }
-        .brand-name { font-size: 13px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 110px; }
-        .brand-tag { font-size: 7px !important; }
-        .nav-btn { padding: 6px 12px !important; font-size: 11px !important; }
+        .nav-container { gap: 8px; }
+        .brand { gap: 8px; max-width: 65%; }
+        .brand-icon img { height: 40px !important; } /* Increased from 30px to 40px */
+        .brand-name { font-size: 15px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 130px; } /* Increased from 13px to 15px */
+        .brand-tag { font-size: 8px !important; } /* Increased from 7px to 8px */
+        .nav-btn { padding: 8px 16px !important; font-size: 12px !important; } /* Slightly larger button */
     }
+    
+    @media screen and (max-width: 500px) {
+        .brand-icon img { height: 35px !important; } /* Medium size for smaller phones */
+        .brand-name { font-size: 14px !important; max-width: 110px; }
+        .brand-tag { font-size: 7px !important; }
+        .nav-btn { padding: 6px 14px !important; font-size: 11px !important; }
+    }
+    
     @media screen and (max-width: 400px) {
-        .brand-name { font-size: 11px !important; max-width: 90px; }
-        .brand-tag { display: none; }
-        .nav-btn span { display: none; }
-        .nav-btn i { margin: 0; }
+        .brand-icon img { height: 32px !important; } /* Still decent size */
+        .brand-name { font-size: 13px !important; max-width: 100px; }
+        .brand-tag { display: none; } /* Hide tagline only on very small screens */
+        .nav-btn span { display: none; } /* Hide text, show only icon */
+        .nav-btn i { margin: 0; font-size: 14px; }
+    }
+    
+    @media screen and (max-width: 340px) {
+        .brand-icon img { height: 30px !important; }
+        .brand-name { font-size: 12px !important; max-width: 85px; }
     }
 </style>
 
