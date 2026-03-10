@@ -14,7 +14,7 @@ const Terminal = {
     cursorEl: null,
     bodyEl: null,
     initialized: false,
-    username: 'root',
+    username: 'Guest',
     hostname: 'KillByte',
     version: '2.5'
 };
