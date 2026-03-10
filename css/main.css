@@ -3208,44 +3208,4 @@ section {
     .modal-content {
         padding: 40px 28px;
     }
-   /* ============================================
-   MOBILE LOGO SIZE FIX - ADD THIS AT THE END
-   ============================================ */
-@media screen and (max-width: 768px) {
-    /* Decrease logo image size */
-    .brand-icon img {
-        height: 40px !important;  /* Reduced from 60px */
-        width: auto;
-    }
-    
-    /* Decrease "KillByte Solutions" text */
-    .brand-name {
-        font-size: 18px !important;  /* Reduced from 24px */
-    }
-    
-    .brand-tag {
-        font-size: 8px !important;  /* Reduced from 10px */
-        letter-spacing: 2px;
-    }
-    
-    /* Adjust spacing between logo and text */
-    .brand {
-        gap: 10px;  /* Reduced from 16px */
-    }
-}
-
-/* Even smaller for very small phones */
-@media screen and (max-width: 480px) {
-    .brand-icon img {
-        height: 35px !important;  /* Even smaller */
-    }
-    
-    .brand-name {
-        font-size: 16px !important;
-    }
-    
-    .brand-tag {
-        font-size: 7px !important;
-    }
-}
 }
