@@ -29,32 +29,32 @@
 
 <!-- ADD THE STYLE HERE - AFTER ALL OTHER CSS -->
 <style>
+    /* PC - Boro */
+    @media screen and (min-width: 1024px) {
+        .brand-icon img { height: 75px !important; }
+        .brand-name { font-size: 30px !important; }
+        .brand-tag { font-size: 12px !important; }
+    }
+    
+    /* Laptop - Medium Boro */
+    @media screen and (min-width: 769px) and (max-width: 1023px) {
+        .brand-icon img { height: 65px !important; }
+        .brand-name { font-size: 26px !important; }
+    }
+    
+    /* Mobile - Perfect Medium */
     @media screen and (max-width: 768px) {
-        .nav-container { gap: 10px; }
-        .brand { gap: 10px; max-width: 70%; }
-        .brand-icon img { height: 45px !important; } /* Good size */
-        .brand-name { font-size: 16px !important; max-width: 140px; } /* Bigger text */
-        .brand-tag { font-size: 9px !important; }
-        .nav-btn { padding: 8px 16px !important; font-size: 12px !important; }
-    }
-    
-    @media screen and (max-width: 550px) {
-        .brand-icon img { height: 40px !important; }
-        .brand-name { font-size: 15px !important; max-width: 120px; }
-    }
-    
-    @media screen and (max-width: 450px) {
-        .brand-icon img { height: 38px !important; }
-        .brand-name { font-size: 14px !important; max-width: 110px; }
+        .brand-icon img { height: 42px !important; }
+        .brand-name { font-size: 16px !important; max-width: 130px; }
         .brand-tag { font-size: 8px !important; }
-        .nav-btn { padding: 6px 14px !important; }
+        .nav-btn { padding: 8px 16px !important; }
     }
     
-    @media screen and (max-width: 380px) {
-        .brand-icon img { height: 35px !important; }
-        .brand-name { font-size: 13px !important; max-width: 100px; }
-        .brand-tag { display: none; } /* Only hide tagline on very small */
-        .nav-btn span { display: none; } /* Only show icon */
+    @media screen and (max-width: 400px) {
+        .brand-icon img { height: 38px !important; }
+        .brand-name { font-size: 15px !important; }
+        .brand-tag { display: none; }
+        .nav-btn span { display: none; }
     }
 </style>
 
