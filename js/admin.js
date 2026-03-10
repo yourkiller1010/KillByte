@@ -312,60 +312,6 @@ function clearAllData() {
 }
 
 // ============================================
-// EXPORT DATA
-// ============================================
-function exportVisitorData() {
-    const visitors = JSON.parse(localStorage.getItem('kb_visitors') || '[]');
-    
-    if (visitors.length === 0) {
-        showNotification('No visitor data to export', 'error');
-        return;
-    }
-
-    // Convert to CSV
-    const headers = ['ID', 'IP', 'City', 'Region', 'Country', 'ISP', 'Timestamp', 'Page'];
-    const rows = visitors.map(v => [
-        v.id,
-        v.ip,
-        v.city,
-        v.region,
-        v.country,
-        v.isp,
-        v.timestamp,
-        v.page
-    ]);
-
-    const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
-
-    // Download
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `killbyte-visitors-${new Date().toISOString().split('T')[0]}.csv`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-
-    showNotification('Visitor data exported', 'success');
-}
-
-// ============================================
-// SETTINGS
-// ============================================
-function updateSiteSettings(settings) {
-    // Save settings to localStorage
-    localStorage.setItem('kb_site_settings', JSON.stringify(settings));
-    showNotification('Settings saved', 'success');
-}
-
-function loadSiteSettings() {
-    const saved = localStorage.getItem('kb_site_settings');
-    return saved ? JSON.parse(saved) : {};
-}
-
-// ============================================
 // NOTIFICATION
 // ============================================
 function showNotification(message, type = 'info') {
@@ -479,6 +425,4 @@ window.adminLogout = adminLogout;
 window.switchAdminTab = switchAdminTab;
 window.loadAdminData = loadAdminData;
 window.clearAllData = clearAllData;
-window.exportVisitorData = exportVisitorData;
-window.updateSiteSettings = updateSiteSettings;
 window.showNotification = showNotification;

@@ -42,7 +42,9 @@ async function initVisitorTracking() {
     saveVisitors();
 
     // Update admin panel if open
-    updateAdminVisitorList();
+    if (typeof updateAdminVisitorList === 'function') {
+        updateAdminVisitorList();
+    }
 }
 
 // ============================================
@@ -195,12 +197,6 @@ function saveVisitors() {
 // DISPLAY UPDATE
 // ============================================
 function updateVisitorDisplay() {
-    // Update navbar counter
-    const countValue = document.getElementById('countValue');
-    if (countValue) {
-        animateCounter(countValue, visitorState.totalCount);
-    }
-
     // Update admin panel counters
     const totalVisitors = document.getElementById('totalVisitors');
     const todayVisitors = document.getElementById('todayVisitors');
@@ -212,27 +208,6 @@ function updateVisitorDisplay() {
     if (todayVisitors) {
         todayVisitors.textContent = visitorState.todayCount.toLocaleString();
     }
-}
-
-function animateCounter(element, target) {
-    const start = parseInt(element.textContent) || 0;
-    const duration = 1000;
-    const startTime = performance.now();
-
-    function update(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-        const current = Math.floor(start + (target - start) * easeOutQuart);
-
-        element.textContent = current.toLocaleString();
-
-        if (progress < 1) {
-            requestAnimationFrame(update);
-        }
-    }
-
-    requestAnimationFrame(update);
 }
 
 // ============================================
@@ -401,36 +376,11 @@ function clearVisitors() {
     updateVisitorDisplay();
     updateAdminVisitorList();
 
-    showNotification('Visitor data cleared', 'success');
-}
-
-// ============================================
-// CHART DATA (for admin panel)
-// ============================================
-function getVisitorChartData() {
-    const days = 7;
-    const data = [];
-    const labels = [];
-
-    for (let i = days - 1; i >= 0; i--) {
-        const date = new Date();
-        date.setDate(date.getDate() - i);
-        const dateStr = date.toDateString();
-
-        // Count visitors for this day
-        const count = visitorState.visitors.filter(v => {
-            const vDate = new Date(v.timestamp);
-            return vDate.toDateString() === dateStr;
-        }).length;
-
-        data.push(count);
-        labels.push(date.toLocaleDateString('en-US', { weekday: 'short' }));
+    if (typeof showNotification === 'function') {
+        showNotification('Visitor data cleared', 'success');
     }
-
-    return { labels, data };
 }
 
 // Export functions
 window.clearVisitors = clearVisitors;
-window.getVisitorChartData = getVisitorChartData;
 window.updateAdminVisitorList = updateAdminVisitorList;

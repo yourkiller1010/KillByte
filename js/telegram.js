@@ -59,7 +59,9 @@ function saveTelegramConfig() {
     // Test connection
     testTelegramConnection();
 
-    showNotification('Telegram configuration saved', 'success');
+    if (typeof showNotification === 'function') {
+        showNotification('Telegram configuration saved', 'success');
+    }
 }
 
 function updateTelegramStatus() {
@@ -97,7 +99,9 @@ async function testTelegramConnection() {
         } else {
             console.error('Telegram bot connection failed:', data.description);
             telegramState.isConnected = false;
-            showNotification('Bot connection failed. Check your token.', 'error');
+            if (typeof showNotification === 'function') {
+                showNotification('Bot connection failed. Check your token.', 'error');
+            }
         }
     } catch (error) {
         console.error('Telegram connection error:', error);
@@ -141,59 +145,6 @@ async function sendTelegramMessage(message, silent = false) {
         console.error('Failed to send Telegram message:', error);
         return false;
     }
-}
-
-// ============================================
-// SEND VISITOR NOTIFICATION
-// ============================================
-async function sendVisitorTelegramNotification(visitor, stats) {
-    if (!telegramState.notifyEnabled) return;
-    if (!telegramState.botToken || !telegramState.chatId) return;
-
-    const location = visitor.city !== 'Unknown' 
-        ? `${visitor.city}, ${visitor.region}, ${visitor.country}` 
-        : visitor.country !== 'Unknown' 
-            ? visitor.country 
-            : 'Unknown Location';
-
-    const date = new Date().toLocaleString('en-US', {
-        weekday: 'short',
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        timeZoneName: 'short'
-    });
-
-    const message = `
-🚨 <b>New Visitor on KillByte</b>
-
-📊 <b>Visitor Information</b>
-├ IP: <code>${visitor.ip}</code>
-├ Location: ${location}
-├ Country: ${visitor.country} (${visitor.countryCode})
-├ ISP: ${visitor.isp}
-├ Timezone: ${visitor.timezone}
-└ Time: ${date}
-
-📱 <b>Device Information</b>
-├ Type: ${getDeviceType()}
-├ Platform: ${navigator.platform}
-├ Language: ${navigator.language}
-└ Screen: ${screen.width}x${screen.height}
-
-📈 <b>Statistics</b>
-├ Total Visitors: ${stats.total}
-└ Today's Visitors: ${stats.today}
-
-🔗 <b>Navigation</b>
-├ Page: ${visitor.page}
-└ Referrer: ${visitor.referrer}
-    `.trim();
-
-    return await sendTelegramMessage(message);
 }
 
 // ============================================
@@ -254,95 +205,10 @@ ${icons[alertType] || 'ℹ️'} <b>System Alert</b>
     return await sendTelegramMessage(message, alertType === 'info');
 }
 
-// ============================================
-// GET BOT INFO
-// ============================================
-async function getBotInfo() {
-    if (!telegramState.botToken) return null;
-
-    try {
-        const response = await fetch(`https://api.telegram.org/bot${telegramState.botToken}/getMe`);
-        const data = await response.json();
-
-        if (data.ok) {
-            return data.result;
-        }
-        return null;
-    } catch (error) {
-        console.error('Error getting bot info:', error);
-        return null;
-    }
-}
-
-// ============================================
-// GET UPDATES (for webhook simulation)
-// ============================================
-async function getTelegramUpdates() {
-    if (!telegramState.botToken) return [];
-
-    try {
-        const response = await fetch(`https://api.telegram.org/bot${telegramState.botToken}/getUpdates?limit=10`);
-        const data = await response.json();
-
-        if (data.ok) {
-            return data.result;
-        }
-        return [];
-    } catch (error) {
-        console.error('Error getting updates:', error);
-        return [];
-    }
-}
-
-// ============================================
-// UTILITY FUNCTIONS
-// ============================================
-function getDeviceType() {
-    const ua = navigator.userAgent;
-    if (/mobile/i.test(ua)) return 'Mobile';
-    if (/tablet/i.test(ua)) return 'Tablet';
-    if (/ipad/i.test(ua)) return 'iPad';
-    return 'Desktop';
-}
-
-function formatTelegramMessage(text) {
-    // Escape special characters for Telegram HTML
-    return text
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
-}
-
-// ============================================
-// SETUP WIZARD
-// ============================================
-function showTelegramSetup() {
-    const steps = `
-How to setup Telegram Bot:
-
-1. Open Telegram and search for @BotFather
-2. Send /newbot command
-3. Follow instructions to create bot
-4. Copy the bot token (looks like: 123456789:ABCdef...)
-5. Start a chat with your bot
-6. Search for @userinfobot
-7. Copy your Chat ID
-8. Paste both in the admin panel
-9. Click "Save Configuration"
-
-Your bot will now receive visitor notifications!
-    `.trim();
-
-    alert(steps);
-}
-
 // Export functions
 window.saveTelegramConfig = saveTelegramConfig;
 window.testTelegramConnection = testTelegramConnection;
 window.sendTelegramMessage = sendTelegramMessage;
-window.sendVisitorTelegramNotification = sendVisitorTelegramNotification;
 window.sendOrderNotification = sendOrderNotification;
 window.sendSystemAlert = sendSystemAlert;
-window.getBotInfo = getBotInfo;
-window.getTelegramUpdates = getTelegramUpdates;
-window.showTelegramSetup = showTelegramSetup;
+window.updateTelegramStatus = updateTelegramStatus;

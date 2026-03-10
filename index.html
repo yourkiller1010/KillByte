@@ -1,46 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KillByte · Premium L7 & L4 Infrastructure</title>
-    <meta name="description" content="KillByte - The most powerful Layer 7 & Layer 4 DDoS infrastructure. Engineered for precision, built for dominance.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/terminal.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>KillByte · Premium L7 & L4 Infrastructure</title>
+<meta name="description" content="KillByte - The most powerful Layer 7 & Layer 4 infrastructure. Engineered for precision, built for dominance.">
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="logo.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="logo.png">
+<link rel="apple-touch-icon" href="logo.png">
+
+<meta name="theme-color" content="#0a0a0a">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/terminal.css">
+
 </head>
 <body>
-    <!-- Preloader -->
-    <div class="preloader" id="preloader">
-        <div class="preloader-content">
-            <div class="preloader-logo">
-                <i class="fas fa-bolt"></i>
-            </div>
-            <div class="preloader-text">KILLBYTE</div>
-            <div class="preloader-bar">
-                <div class="preloader-progress"></div>
-            </div>
-            <div class="preloader-status">Initializing systems...</div>
+<!-- Preloader -->
+<div class="preloader" id="preloader">
+    <div class="preloader-content">
+        <div class="preloader-text">KILLBYTE SOLUTIONS</div>
+        <div class="preloader-bar">
+            <div class="preloader-progress"></div>
         </div>
+        <div class="preloader-status">Initializing systems...</div>
     </div>
+</div>
 
-    <!-- Background Canvas -->
-    <canvas id="bgCanvas" class="bg-canvas"></canvas>
+<!-- Background Canvas -->
+<canvas id="bgCanvas" class="bg-canvas"></canvas>
 
-    <!-- Ambient Glow Effects -->
-    <div class="ambient-glow glow-1"></div>
-    <div class="ambient-glow glow-2"></div>
-    <div class="ambient-glow glow-3"></div>
+<!-- Grid Overlay -->
+<div class="grid-overlay"></div>
 
-    <!-- Grid Overlay -->
-    <div class="grid-overlay"></div>
-
-    <!-- Noise Texture -->
-    <div class="noise-overlay"></div>
+<!-- Noise Texture -->
+<div class="noise-overlay"></div>
 
     <!-- Visitor Notification Toast -->
     <div class="visitor-toast" id="visitorToast">
@@ -51,60 +56,81 @@
         </div>
     </div>
 
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="#" class="brand">
-                <div class="brand-icon">
-                    <i class="fas fa-bolt"></i>
-                </div>
-                <div class="brand-text">
-                    <span class="brand-name">KillByte</span>
-                    <span class="brand-tag">Solutions</span>
-                </div>
+<!-- Navigation -->
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <a href="#" class="brand">
+            <div class="brand-icon" style="background: none; background-color: transparent;">
+                <img src="logo.png" alt="KillByte" style="width: auto; height: 60px; max-width: 240px; object-fit: contain;">
+            </div>
+            <div class="brand-text">
+                <span class="brand-name">KillByte</span>
+                <span class="brand-tag">Solutions</span>
+            </div>
+        </a>
+
+        <div class="nav-links">
+            <a href="#home" class="nav-link active" data-section="home">
+                <span class="nav-link-text">Home</span>
+                <span class="nav-link-line"></span>
             </a>
-
-            <div class="nav-links">
-                <a href="#home" class="nav-link active" data-section="home">
-                    <span class="nav-link-text">Home</span>
-                    <span class="nav-link-line"></span>
-                </a>
-                <a href="#terminal" class="nav-link" data-section="terminal">
-                    <span class="nav-link-text">Terminal</span>
-                    <span class="nav-link-line"></span>
-                </a>
-                <a href="#tiers" class="nav-link" data-section="tiers">
-                    <span class="nav-link-text">Tiers</span>
-                    <span class="nav-link-line"></span>
-                </a>
-                <a href="#plans" class="nav-link" data-section="plans">
-                    <span class="nav-link-text">Plans</span>
-                    <span class="nav-link-line"></span>
-                </a>
-                <a href="#enterprise" class="nav-link" data-section="enterprise">
-                    <span class="nav-link-text">Enterprise</span>
-                    <span class="nav-link-line"></span>
-                </a>
-                <a href="#support" class="nav-link" data-section="support">
-                    <span class="nav-link-text">Support</span>
-                    <span class="nav-link-line"></span>
-                </a>
-            </div>
-
-            <div class="nav-actions">
-                </div>
-                <button class="nav-btn support-btn" onclick="openSupport()">
-                    <i class="fas fa-headset"></i>
-                    <span>Support</span>
-                </button>
-                <button class="menu-toggle" id="menuToggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
+            <a href="#terminal" class="nav-link" data-section="terminal">
+                <span class="nav-link-text">Terminal</span>
+                <span class="nav-link-line"></span>
+            </a>
+            <a href="#tiers" class="nav-link" data-section="tiers">
+                <span class="nav-link-text">Tiers</span>
+                <span class="nav-link-line"></span>
+            </a>
+            <a href="#plans" class="nav-link" data-section="plans">
+                <span class="nav-link-text">Plans</span>
+                <span class="nav-link-line"></span>
+            </a>
+            <a href="#enterprise" class="nav-link" data-section="enterprise">
+                <span class="nav-link-text">Enterprise</span>
+                <span class="nav-link-line"></span>
+            </a>
+            <a href="#support" class="nav-link" data-section="support">
+                <span class="nav-link-text">Support</span>
+                <span class="nav-link-line"></span>
+            </a>
         </div>
-    </nav>
+
+        <div class="nav-actions">
+            <!-- Language Selector -->
+            <div class="language-selector">
+                <button class="lang-btn" id="langBtn">
+                    <img src="https://flagcdn.com/w20/gb.png" alt="English" class="lang-flag">
+                    <span>EN</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="lang-dropdown" id="langDropdown">
+                    <button class="lang-option active" data-lang="en">
+                        <img src="https://flagcdn.com/w20/gb.png" alt="English">
+                        <span>English</span>
+                    </button>
+                    <button class="lang-option" data-lang="cn">
+                        <img src="https://flagcdn.com/w20/cn.png" alt="Chinese">
+                        <span>中文</span>
+                    </button>
+                    <button class="lang-option" data-lang="ru">
+                        <img src="https://flagcdn.com/w20/ru.png" alt="Russian">
+                        <span>Русский</span>
+                    </button>
+                </div>
+            </div>
+            <button class="nav-btn support-btn" onclick="openSupport()">
+                <i class="fas fa-headset"></i>
+                <span>Support</span>
+            </button>
+            <button class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </div>
+</nav>
 
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
@@ -315,7 +341,7 @@
                 <p class="hero-description">
                     The most powerful Layer 7 & Layer 4 DDoS infrastructure. 
                     Engineered for precision, built for dominance.
-                    <span class="highlight">@rankflood</span> Best L7 & L4 DDoS
+                  
                 </p>
                 <div class="hero-actions">
                     <a href="#plans" class="btn btn-primary">
@@ -350,15 +376,10 @@
                     </div>
                 </div>
             </div>
-            <div class="scroll-indicator">
-                <div class="scroll-mouse">
-                    <div class="scroll-wheel"></div>
-                </div>
-                <span>Scroll to explore</span>
-            </div>
+         
         </section>
 
-       <!-- Terminal Section -->
+     <!-- Terminal Section -->
 <section id="terminal" class="terminal-section">
     <div class="section-header">
         <span class="section-label">System Status</span>
@@ -366,7 +387,7 @@
         <p class="section-subtitle">Real-time infrastructure monitoring</p>
     </div>
     <div class="terminal-wrapper">
-        <div class="mac-terminal">
+        <div class="mac-terminal" style="box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
             <div class="terminal-header">
                 <div class="terminal-buttons">
                     <span class="terminal-btn close"></span>
@@ -375,308 +396,39 @@
                 </div>
                 <div class="terminal-title">
                     <i class="fas fa-terminal"></i>
-                    killbyte@server:~ — zsh
+                    KillByte Solutions | User: Guest | Expiry Date: 5/11/2028 | Version: 2.5
                 </div>
                 <div class="terminal-actions">
-                    <i class="fas fa-search"></i>
+                    <span class="demo-badge">DEMO</span>
                 </div>
             </div>
-            <div class="terminal-body" id="terminalBody">
-                <div class="terminal-line welcome">
-                    <span class="terminal-text">Last login: <span id="loginTime"></span> from 192.168.1.100</span>
+            <div class="terminal-body" id="terminalBody" style="box-shadow: none; border: none;">
+                <div class="terminal-content" id="terminalContent">
+                    <div class="terminal-line">KillByte Solutions (v2.5)</div>
+                    <div class="terminal-line">Developed by <span style="color: #ff3333;">@RankFlood</span></div>
+                    <div class="terminal-line">Join our Telegram channel: <span style="color: #ff3333;">https://t.me/KillByteSolution</span></div>
+                    <div class="terminal-line">Type "help" to view the command list</div>
+                    <div class="terminal-line" style="margin-top: 8px;">&nbsp;</div>
                 </div>
-                <div class="terminal-line welcome">
-                    <span class="terminal-text ascii-art">
+                <div class="terminal-input-line">
+                    <span class="terminal-prompt">
+                        <span class="prompt-user">Guest</span>
+                        <span class="prompt-separator">●</span>
+                        <span class="prompt-host">KillByte</span>
+                        <span class="prompt-arrow">►►</span>
                     </span>
+                    <span class="terminal-input" id="terminalInput"></span>
+                    <span class="terminal-cursor" id="terminalCursor"></span>
                 </div>
-                <div id="animatedAscii"></div>
-                <div class="terminal-line welcome">
-                    <span class="terminal-text success">✓ Connected to KillByte Infrastructure</span>
-                </div>
-                <div class="terminal-line prompt-line">
-                    <span class="prompt">killbyte@server:~$</span>
-                    <span class="command" id="typingCommand"></span>
-                    <span class="cursor" id="cursor"></span>
-                </div>
-                <div class="terminal-output" id="terminalOutput"></div>
             </div>
+        </div>
+        <div class="terminal-hint">
+            <i class="fas fa-info-circle"></i>
+            <span>Type <code>help</code> for available commands • <code>methods</code> for attack vectors • <code>clear</code> to reset</span>
         </div>
     </div>
 </section>
 
-<script>
-// Terminal animation and clear command functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const loginTimeElement = document.getElementById('loginTime');
-    const now = new Date();
-    loginTimeElement.textContent = now.toLocaleString();
-    
-    // Animated ASCII art with colors
-    const asciiLines = [
-        { text: '\x1b[38;5;196m      __  ___ \x1b[0m', delay: 100 },
-        { text: '\x1b[38;5;196m     |  |/  / \x1b[0m  \x1b[1mKillByte Solutions\x1b[0m (v2.5)', delay: 100 },
-        { text: '\x1b[38;5;196m     |  \'  /  \x1b[0m  Developed by \x1b[38;5;196m@RankFlood\x1b[0m', delay: 100 },
-        { text: '\x1b[38;5;196m     |    <   \x1b[0m  Join our Telegram channel: \x1b[38;5;196mhttps://t.me/KillByteSolution\x1b[0m', delay: 100 },
-        { text: '\x1b[38;5;196m     |  .  \\  \x1b[0m  Type \x1b[38;5;196m"help"\x1b[0m to view the command list', delay: 100 },
-        { text: '\x1b[38;5;196m     |__|\\__\\ \x1b[0m', delay: 100 },
-        { text: '', delay: 100 }
-    ];
-    
-    const animatedAscii = document.getElementById('animatedAscii');
-    
-    // Convert ANSI color codes to HTML spans
-    function ansiToHtml(text) {
-        if (!text) return '';
-        
-        // Handle color codes
-        return text
-            .replace(/\x1b\[38;5;196m/g, '<span style="color: #ff0000;">')
-            .replace(/\x1b\[1m/g, '<span style="font-weight: bold;">')
-            .replace(/\x1b\[0m/g, '</span>')
-            .replace(/\x1b\[0m/g, '</span>');
-    }
-    
-    // Animate ASCII art line by line
-    let lineIndex = 0;
-    
-    function animateAscii() {
-        if (lineIndex < asciiLines.length) {
-            const line = asciiLines[lineIndex];
-            
-            if (line.text) {
-                const lineElement = document.createElement('div');
-                lineElement.className = 'terminal-line';
-                lineElement.innerHTML = `<span class="terminal-text">${ansiToHtml(line.text)}</span>`;
-                animatedAscii.appendChild(lineElement);
-            }
-            
-            lineIndex++;
-            
-            // Scroll to bottom
-            const terminalBody = document.getElementById('terminalBody');
-            terminalBody.scrollTop = terminalBody.scrollHeight;
-            
-            setTimeout(animateAscii, line.delay);
-        }
-    }
-    
-    // Start animation after a short delay
-    setTimeout(animateAscii, 500);
-    
-    // Clear command functionality
-    const terminalOutput = document.getElementById('terminalOutput');
-    const commandSpan = document.getElementById('typingCommand');
-    const cursor = document.getElementById('cursor');
-    const terminalBody = document.getElementById('terminalBody');
-    
-    let currentCommand = '';
-    let commands = [];
-    let commandHistory = [];
-    let historyIndex = -1;
-    
-    // Available commands
-    const availableCommands = ['help', 'clear', 'status', 'whoami', 'date', 'ls'];
-    
-    // Command descriptions
-    const commandDescriptions = {
-        'help': 'Display available commands',
-        'clear': 'Clear the terminal screen',
-        'status': 'Show system status',
-        'whoami': 'Display current user',
-        'date': 'Show current date and time',
-        'ls': 'List directory contents'
-    };
-    
-    // Handle keydown events
-    document.addEventListener('keydown', function(e) {
-        // Only handle if typing command is focused (or we can make it always active)
-        if (e.key === 'Escape') {
-            // Clear current command
-            currentCommand = '';
-            commandSpan.textContent = currentCommand;
-            return;
-        }
-        
-        if (e.key === 'Enter') {
-            // Execute command
-            executeCommand(currentCommand);
-            currentCommand = '';
-            commandSpan.textContent = currentCommand;
-            return;
-        }
-        
-        if (e.key === 'Backspace') {
-            // Remove last character
-            currentCommand = currentCommand.slice(0, -1);
-            commandSpan.textContent = currentCommand;
-            return;
-        }
-        
-        if (e.key === 'ArrowUp') {
-            // Navigate command history
-            if (commandHistory.length > 0) {
-                if (historyIndex < commandHistory.length - 1) {
-                    historyIndex++;
-                    currentCommand = commandHistory[commandHistory.length - 1 - historyIndex];
-                } else {
-                    historyIndex = commandHistory.length - 1;
-                    currentCommand = commandHistory[0];
-                }
-                commandSpan.textContent = currentCommand;
-            }
-            return;
-        }
-        
-        if (e.key === 'ArrowDown') {
-            // Navigate command history
-            if (historyIndex > 0) {
-                historyIndex--;
-                currentCommand = commandHistory[commandHistory.length - 1 - historyIndex];
-            } else {
-                historyIndex = -1;
-                currentCommand = '';
-            }
-            commandSpan.textContent = currentCommand;
-            return;
-        }
-        
-        // Ignore modifier keys
-        if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
-            currentCommand += e.key;
-            commandSpan.textContent = currentCommand;
-        }
-    });
-    
-    function executeCommand(cmd) {
-        if (!cmd.trim()) {
-            // Empty command
-            addOutput('', '');
-            return;
-        }
-        
-        // Add to command history
-        if (cmd.trim()) {
-            commandHistory.push(cmd.trim());
-            historyIndex = -1;
-        }
-        
-        const args = cmd.trim().split(' ');
-        const command = args[0].toLowerCase();
-        
-        // Execute command
-        switch(command) {
-            case 'clear':
-                clearTerminal();
-                break;
-            case 'help':
-                showHelp();
-                break;
-            case 'status':
-                showStatus();
-                break;
-            case 'whoami':
-                addOutput('killbyte', 'whoami');
-                break;
-            case 'date':
-                addOutput(new Date().toString(), 'date');
-                break;
-            case 'ls':
-                addOutput('README.md  config.json  src/  assets/', 'ls');
-                break;
-            default:
-                addOutput(`Command not found: ${command}. Type 'help' for available commands.`, cmd);
-        }
-    }
-    
-    function addOutput(text, command) {
-        const outputDiv = document.createElement('div');
-        outputDiv.className = 'terminal-output-line';
-        
-        if (command) {
-            // Show the command that was entered
-            const promptLine = document.createElement('div');
-            promptLine.className = 'terminal-line';
-            promptLine.innerHTML = `<span class="prompt">killbyte@server:~$</span> <span class="command">${command}</span>`;
-            terminalOutput.appendChild(promptLine);
-        }
-        
-        // Show the output
-        const outputLine = document.createElement('div');
-        outputLine.className = 'terminal-line output';
-        
-        // Handle colored output if needed
-        if (typeof text === 'string' && text.includes('\x1b')) {
-            outputLine.innerHTML = `<span class="terminal-text">${ansiToHtml(text)}</span>`;
-        } else {
-            outputLine.innerHTML = `<span class="terminal-text">${text}</span>`;
-        }
-        
-        terminalOutput.appendChild(outputLine);
-        
-        // Scroll to bottom
-        terminalBody.scrollTop = terminalBody.scrollHeight;
-    }
-    
-    function clearTerminal() {
-        // Clear all terminal output
-        terminalOutput.innerHTML = '';
-        
-        // Also clear the animated ASCII area
-        animatedAscii.innerHTML = '';
-        
-        // Re-add the welcome message and animated ASCII
-        setTimeout(() => {
-            // Reset and replay animation
-            lineIndex = 0;
-            animateAscii();
-            
-            const welcomeLine = document.createElement('div');
-            welcomeLine.className = 'terminal-line welcome';
-            welcomeLine.innerHTML = '<span class="terminal-text success">✓ Connected to KillByte Infrastructure</span>';
-            terminalOutput.appendChild(welcomeLine);
-        }, 100);
-    }
-    
-    function showHelp() {
-        let helpText = 'Available commands:\n';
-        for (const cmd of availableCommands) {
-            helpText += `  ${cmd.padEnd(10)} - ${commandDescriptions[cmd]}\n`;
-        }
-        addOutput(helpText, 'help');
-    }
-    
-    function showStatus() {
-        const status = `
-System Status:
-  CPU Usage: 23%
-  Memory Usage: 1.2GB/8GB
-  Disk Usage: 45%
-  Uptime: 14 days
-  Active Connections: 3
-        `;
-        addOutput(status, 'status');
-    }
-});
-</script>
-
-<style>
-.terminal-output-line {
-    margin-bottom: 0.5rem;
-}
-
-.terminal-line.output {
-    color: #e0e0e0;
-    white-space: pre-wrap;
-}
-
-.terminal-text [style*="color: #ff0000"] {
-    color: #ff0000 !important;
-}
-
-.terminal-text [style*="font-weight: bold"] {
-    font-weight: bold !important;
-}
-</style>
         <!-- About Section -->
         <section id="about" class="about-section">
             <div class="about-grid">
@@ -1125,61 +877,67 @@ System Status:
             </div>
         </section>
 
-        <!-- Enterprise Section -->
-        <section id="enterprise" class="enterprise-section">
-            <div class="section-header">
-                <span class="section-label">Enterprise</span>
-                <h2 class="section-title">Elite Solutions</h2>
-                <p class="section-subtitle">Maximum power for maximum impact</p>
-            </div>
-            <div class="enterprise-grid">
-                <div class="enterprise-card">
-                    <div class="enterprise-header">
-                        <div class="enterprise-icon">
-                            <i class="fas fa-atom"></i>
-                        </div>
-                        <div class="enterprise-info">
-                            <h3 class="enterprise-name">Enterprise Reactor</h3>
-                            <span class="enterprise-badge">$1200/mo</span>
-                        </div>
-                    </div>
-                    <p class="enterprise-desc">Full-Scale DDoS Domination</p>
-                    <div class="enterprise-price">$1200<span>/month</span></div>
-                    <ul class="enterprise-features">
-                        <li><i class="fas fa-check"></i> 35M+ Rq/s Layer 7 Power</li>
-                        <li><i class="fas fa-check"></i> 150+ Gbps L4 Flood Capability</li>
-                        <li><i class="fas fa-check"></i> Multi-Target Parallel Handling</li>
-                        <li><i class="fas fa-check"></i> API-Optimized Deployment</li>
-                        <li><i class="fas fa-check"></i> Priority Slot Execution</li>
-                        <li><i class="fas fa-check"></i> Zero Packet Loss</li>
-                    </ul>
-                    <button class="btn btn-primary" onclick="buyPlan('reactor')">Configure</button>
+<!-- Enterprise Section -->
+<section id="enterprise" class="enterprise-section">
+    <div class="section-header">
+        <span class="section-label">Enterprise</span>
+        <h2 class="section-title">Elite Solutions</h2>
+        <p class="section-subtitle">Maximum power for maximum impact</p>
+    </div>
+    <div class="enterprise-grid">
+        <div class="enterprise-card">
+            <div class="enterprise-header">
+                <div class="enterprise-icon">
+                    <i class="fas fa-atom"></i>
                 </div>
+                <div class="enterprise-info">
+                    <h3 class="enterprise-name">Enterprise Reactor</h3>
+                    <span class="enterprise-badge">$1200/mo</span>
+                </div>
+            </div>
+            <p class="enterprise-desc">Full-Scale DDoS Domination</p>
+            <div class="enterprise-price">$1200<span>/month</span></div>
+            <ul class="enterprise-features">
+                <li><i class="fas fa-check"></i> 35M+ Rq/s Layer 7 Power</li>
+                <li><i class="fas fa-check"></i> 150+ Gbps L4 Flood Capability</li>
+                <li><i class="fas fa-check"></i> Multi-Target Parallel Handling</li>
+                <li><i class="fas fa-check"></i> API-Optimized Deployment</li>
+                <li><i class="fas fa-check"></i> Priority Slot Execution</li>
+                <li><i class="fas fa-check"></i> Zero Packet Loss</li>
+            </ul>
+            <button class="btn btn-primary" onclick="buyPlan('reactor')">
+                <span>Configure</span>
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
 
-                <div class="enterprise-card ultimate">
-                    <div class="enterprise-header">
-                        <div class="enterprise-icon">
-                            <i class="fas fa-meteor"></i>
-                        </div>
-                        <div class="enterprise-info">
-                            <h3 class="enterprise-name">Hellstorm Protocol</h3>
-                            <span class="enterprise-badge dark">$1450/mo</span>
-                        </div>
-                    </div>
-                    <p class="enterprise-desc">The Final Evolution</p>
-                    <div class="enterprise-price">$1450<span>/month</span></div>
-                    <ul class="enterprise-features">
-                        <li><i class="fas fa-check"></i> 45M+ Rq/s L7 Floods</li>
-                        <li><i class="fas fa-check"></i> 200+ Gbps Raw L4 Output</li>
-                        <li><i class="fas fa-check"></i> VIP-Only Private servers</li>
-                        <li><i class="fas fa-check"></i> Obfuscation Methods</li>
-                        <li><i class="fas fa-check"></i> Exclusive L7-KILLER Payloads</li>
-                        <li><i class="fas fa-check"></i> Zero-Lag Launch Time</li>
-                    </ul>
-                    <button class="btn btn-light" onclick="buyPlan('hellstorm')">Configure</button>
+        <div class="enterprise-card ultimate">
+            <div class="enterprise-header">
+                <div class="enterprise-icon">
+                    <i class="fas fa-meteor"></i>
+                </div>
+                <div class="enterprise-info">
+                    <h3 class="enterprise-name">Hellstorm Protocol</h3>
+                    <span class="enterprise-badge">$1450/mo</span>
                 </div>
             </div>
-        </section>
+            <p class="enterprise-desc">The Final Evolution</p>
+            <div class="enterprise-price">$1450<span>/month</span></div>
+            <ul class="enterprise-features">
+                <li><i class="fas fa-check"></i> 45M+ Rq/s L7 Floods</li>
+                <li><i class="fas fa-check"></i> 200+ Gbps Raw L4 Output</li>
+                <li><i class="fas fa-check"></i> VIP-Only Private servers</li>
+                <li><i class="fas fa-check"></i> Obfuscation Methods</li>
+                <li><i class="fas fa-check"></i> Exclusive L7-KILLER Payloads</li>
+                <li><i class="fas fa-check"></i> Zero-Lag Launch Time</li>
+            </ul>
+            <button class="btn btn-primary" onclick="buyPlan('hellstorm')">
+                <span>Configure</span>
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+</section>
 
         <!-- Support Section -->
         <section id="support" class="support-section">
@@ -1279,27 +1037,30 @@ System Status:
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <div class="footer-icon">
-                    <i class="fas fa-bolt"></i>
-                </div>
-                <span class="footer-name">KillByte</span>
-            </div>
-            <p class="footer-text">Premium infrastructure for elite operators.</p>
-            <div class="footer-links">
-                <button onclick="showTerms()">Terms</button>
-                <button onclick="showPrivacy()">Privacy</button>
-                <button onclick="openAdminModal()">Admin</button>
-            </div>
-            <p class="footer-copy">
-                &copy; 2026 KillByte Solutions. All rights reserved. | Admin: <span class="highlight">@rankflood</span>
-            </p>
-        </div>
-    </footer>
 
+   <!-- Footer -->
+<footer class="footer">
+    <div class="footer-content">
+
+        <div class="footer-brand">
+            <span class="footer-name">KillByte</span>
+        </div>
+
+        <p class="footer-text">Premium infrastructure for elite operators.</p>
+
+        <div class="footer-links">
+            <button onclick="showTerms()">Terms</button>
+            <button onclick="showPrivacy()">Privacy</button>
+            <button onclick="openAdminModal()">Admin</button>
+        </div>
+
+        <p class="footer-copy">
+            &copy; 2026 KillByte Solutions. All rights reserved. |
+          Admin: @rankflood</a>
+        </p>
+
+    </div>
+</footer>
     <!-- Scripts -->
     <script src="js/main.js"></script>
     <script src="js/terminal.js"></script>
