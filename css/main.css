@@ -303,7 +303,7 @@ body {
 }
 
 /* ============================================
-   NAVBAR - PREMIUM
+   NAVBAR - PREMIUM (FIXED)
    ============================================ */
 .navbar {
     position: fixed;
@@ -329,6 +329,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
 }
 
 .brand {
@@ -338,6 +339,7 @@ body {
     text-decoration: none;
     color: var(--text-primary);
     transition: transform 0.3s var(--ease-out-expo);
+    flex-shrink: 0;
 }
 
 .brand:hover {
@@ -400,6 +402,31 @@ body {
     border-radius: 100px;
     border: 1px solid var(--border);
     backdrop-filter: blur(10px);
+}
+
+/* PC and Large Laptop - Center Fix */
+@media screen and (min-width: 1200px) {
+    .nav-links {
+        flex: 1;
+        justify-content: center;
+        margin: 0 40px;
+    }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1199px) {
+    .nav-links {
+        flex: 1;
+        justify-content: center;
+        margin: 0 30px;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1023px) {
+    .nav-links {
+        flex: 1;
+        justify-content: center;
+        margin: 0 20px;
+    }
 }
 
 .nav-link {
@@ -565,6 +592,7 @@ body {
     display: flex;
     align-items: center;
     gap: 20px;
+    flex-shrink: 0;
 }
 
 /* Premium Button - Support */
@@ -700,6 +728,99 @@ body {
     width: 100%;
 }
 
+/* ============================================
+   RESPONSIVE FIXES - MOBILE LANGUAGE SELECTOR
+   ============================================ */
+@media (max-width: 1200px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .menu-toggle {
+        display: flex;
+    }
+    
+    /* Mobile e language selector show korbe */
+    .language-selector {
+        display: block !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 16px 24px;
+    }
+    
+    .brand-icon img {
+        height: 45px;
+    }
+    
+    .brand-name {
+        font-size: 20px;
+    }
+    
+    .brand-tag {
+        font-size: 8px;
+        letter-spacing: 2px;
+    }
+    
+    /* Language selector mobile e thik thakbe */
+    .language-selector {
+        display: block !important;
+    }
+    
+    .lang-btn {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+    
+    .lang-btn span {
+        display: none; /* Shudhu icon show korbe */
+    }
+    
+    .lang-btn i {
+        font-size: 12px;
+    }
+    
+    .nav-btn {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .brand-icon img {
+        height: 40px;
+    }
+    
+    .brand-name {
+        font-size: 18px;
+        max-width: 120px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .brand-tag {
+        display: none;
+    }
+    
+    .lang-btn {
+        padding: 6px 10px;
+    }
+    
+    .lang-btn span {
+        display: none;
+    }
+    
+    .nav-btn span {
+        display: none; /* Support button e shudhu icon */
+    }
+    
+    .nav-btn i {
+        font-size: 14px;
+    }
+}
 /* ============================================
    HERO SECTION - PREMIUM WITH STATS BOXES
    ============================================ */
