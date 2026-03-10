@@ -116,7 +116,36 @@ body {
     transform: scale(0.9);
 }
 
+.preloader-logo {
+    width: 100px;
+    height: 100px;
+    background: var(--gradient-red);
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 32px;
+    position: relative;
+    animation: logoPulse 2s ease-in-out infinite;
+    box-shadow: var(--shadow-red);
+}
 
+.preloader-logo::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 28px;
+    background: linear-gradient(135deg, var(--accent-red), transparent, var(--accent-red));
+    z-index: -1;
+    animation: rotate 4s linear infinite;
+    opacity: 0.5;
+}
+
+.preloader-logo i {
+    font-size: 44px;
+    color: white;
+    animation: pulse 1.5s ease-in-out infinite;
+}
 
 @keyframes logoPulse {
     0%, 100% { 
