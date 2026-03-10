@@ -44,12 +44,139 @@
     
     /* Mobile - Really Boro */
     @media screen and (max-width: 768px) {
+        /* Navbar fixes */
         .nav-container { gap: 8px; }
         .brand { gap: 12px; max-width: 75%; }
-        .brand-icon img { height: 55px !important; } /* Even bigger: 55px */
-        .brand-name { font-size: 22px !important; max-width: 160px; } /* Bigger text */
+        .brand-icon img { height: 55px !important; }
+        .brand-name { font-size: 22px !important; max-width: 160px; }
         .brand-tag { font-size: 11px !important; }
         .nav-btn { padding: 12px 20px !important; font-size: 14px !important; }
+        
+        /* WORD SPACING FIX - All text */
+        .hero-title {
+            letter-spacing: normal !important;
+            line-height: 1.3 !important;
+            word-spacing: 2px !important;
+        }
+        
+        .hero-title .title-line {
+            margin-bottom: 8px;
+        }
+        
+        .hero-description {
+            letter-spacing: 0.3px !important;
+            line-height: 1.6 !important;
+            word-spacing: 1px !important;
+            padding: 0 15px;
+        }
+        
+        .section-title {
+            letter-spacing: normal !important;
+            line-height: 1.3 !important;
+            padding: 0 10px;
+        }
+        
+        .section-subtitle {
+            letter-spacing: 0.3px !important;
+            line-height: 1.5 !important;
+            padding: 0 15px;
+        }
+        
+        .plan-name {
+            letter-spacing: normal !important;
+            line-height: 1.4 !important;
+        }
+        
+        .plan-specs .spec-label,
+        .plan-specs .spec-value {
+            letter-spacing: normal !important;
+            line-height: 1.5 !important;
+        }
+        
+        .tier-name {
+            letter-spacing: normal !important;
+            line-height: 1.3 !important;
+        }
+        
+        .tier-desc {
+            letter-spacing: 0.3px !important;
+            line-height: 1.6 !important;
+            padding: 0 15px;
+        }
+        
+        .support-title {
+            letter-spacing: normal !important;
+            line-height: 1.3 !important;
+        }
+        
+        .support-desc {
+            letter-spacing: 0.3px !important;
+            line-height: 1.6 !important;
+            padding: 0 10px;
+        }
+        
+        .enterprise-name {
+            letter-spacing: normal !important;
+            line-height: 1.3 !important;
+        }
+        
+        .enterprise-desc {
+            letter-spacing: 0.3px !important;
+            line-height: 1.6 !important;
+        }
+        
+        .enterprise-features li {
+            letter-spacing: normal !important;
+            line-height: 1.6 !important;
+            padding: 12px 0;
+        }
+        
+        .footer-text {
+            letter-spacing: normal !important;
+            line-height: 1.6 !important;
+            padding: 0 20px;
+        }
+        
+        /* Button text */
+        .btn, .nav-btn, .plan-btn, .modal-btn {
+            letter-spacing: 0.5px !important;
+            line-height: 1.4 !important;
+        }
+        
+        /* General text */
+        p, .text, .description, .desc {
+            letter-spacing: 0.3px !important;
+            line-height: 1.6 !important;
+            word-spacing: 1px !important;
+        }
+        
+        /* Stats text */
+        .stat-number {
+            letter-spacing: normal !important;
+            line-height: 1.2 !important;
+        }
+        
+        .stat-label {
+            letter-spacing: 1px !important;
+            line-height: 1.4 !important;
+        }
+        
+        /* Hero actions spacing */
+        .hero-actions {
+            gap: 15px;
+            padding: 0 15px;
+        }
+        
+        .hero-actions .btn {
+            width: 100%;
+            justify-content: center;
+        }
+        
+        /* Plan cards spacing */
+        .plans-grid {
+            gap: 20px;
+            padding: 0 10px;
+        }
     }
     
     @media screen and (max-width: 600px) {
@@ -61,6 +188,27 @@
         .brand-icon img { height: 45px !important; }
         .brand-name { font-size: 18px !important; max-width: 125px; }
         .brand-tag { font-size: 9px !important; }
+        
+        /* Extra small text fixes */
+        .hero-title {
+            font-size: 32px !important;
+            line-height: 1.2 !important;
+        }
+        
+        .hero-description {
+            font-size: 16px;
+            line-height: 1.5 !important;
+        }
+        
+        .section-title {
+            font-size: 28px;
+            line-height: 1.2 !important;
+        }
+        
+        .section-subtitle {
+            font-size: 16px;
+            line-height: 1.5 !important;
+        }
     }
     
     @media screen and (max-width: 380px) {
@@ -68,6 +216,18 @@
         .brand-name { font-size: 17px !important; max-width: 115px; }
         .brand-tag { display: none; }
         .nav-btn span { display: none; }
+        
+        .hero-title {
+            font-size: 28px !important;
+        }
+        
+        .hero-description {
+            font-size: 15px;
+        }
+        
+        .section-title {
+            font-size: 24px;
+        }
     }
 </style>
 
