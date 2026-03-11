@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>KillByte Terminal</title>
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/xterm/css/xterm.css"/>
+
+<style>
+
+html,body{
+height:100%;
+margin:0;
+background:#000;
+overflow:hidden;
+}
+
+#terminal{
+height:100%;
+width:100%;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="terminal"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/xterm/lib/xterm.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xterm-addon-fit/lib/xterm-addon-fit.js"></script>
+
+<script>
+
+// username title
+const username = localStorage.getItem("kb_user")
+
+if(username){
+document.title="KillByte | Username : "+username
+}
+
+
+// token check
+const token = localStorage.getItem("kb_token")
+
+if(!token){
+window.location="/c2"
+}
+
+
+// terminal
+const term = new Terminal({
+cursorBlink:true,
+fontFamily:"monospace",
+fontSize:14,
+scrollback:5000
+})
+
+const fitAddon = new FitAddon.FitAddon()
+
+term.loadAddon(fitAddon)
+
+term.open(document.getElementById("terminal"))
+
+fitAddon.fit()
+
+window.addEventListener("resize",()=>fitAddon.fit())
+
+
+// ws protocol
+const protocol = location.protocol === "https:" ? "wss://" : "ws://"
+
+const ws = new WebSocket(protocol + location.host + "/terminal?token=" + token)
+
+ws.onopen = ()=>{
+term.write("\r\nConnected\r\n\r\n")
+}
+
+ws.onmessage = e=>{
+term.write(e.data)
+}
+
+ws.onerror = ()=>{
+term.write("\r\nConnection error\r\n")
+}
+
+ws.onclose = ()=>{
+term.write("\r\nConnection closed\r\n")
+}
+
+term.onData(data=>{
+if(ws.readyState === 1){
+ws.send(data)
+}
+})
+
+</script>
+
+</body>
+</html>
