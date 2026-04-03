@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KillByte · Private Extreme Infrastructure | Unmatched Power Plans</title>
+    <meta name="description" content="Private extreme DDoS infrastructure - dedicated slots, isolated servers, 2.5M+ proxy pool, 24/7 engineering. Zero sharing. Absolute dominance. Trusted since 2024.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* ============================================
+           KILLBYTE PRIVATE EXTREME - PREMIUM DESIGN
+           ============================================ */
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #161616;
+            --bg-card: #1a1a1a;
+            --bg-elevated: #1e1e1e;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-tertiary: #666666;
+            --text-muted: #444444;
+            --accent-red: #ff3333;
+            --accent-red-dark: #cc0000;
+            --border: #222222;
+            --border-light: #2a2a2a;
+            --gradient-red: linear-gradient(135deg, #ff3333 0%, #cc0000 100%);
+            --gradient-text: linear-gradient(135deg, #ffffff 0%, #888888 100%);
+            --shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.8);
+            --font-primary: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-primary);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        ::selection { background: rgba(255, 51, 51, 0.3); color: white; }
+        
+        /* Background effects */
+        .bg-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(circle at 30% 20%, rgba(255,51,51,0.08), transparent 70%); }
+        .grid-overlay {
+            position: fixed; inset: 0;
+            background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 80px 80px;
+            pointer-events: none; z-index: 1;
+        }
+        .noise-overlay {
+            position: fixed; inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.015; pointer-events: none; z-index: 2;
+        }
+        
+        /* Transfer Loading Overlay */
+        .transfer-loading {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.98); backdrop-filter: blur(30px);
+            z-index: 10001; display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: all 0.6s var(--ease-out-expo);
+        }
+        .transfer-loading.active { opacity: 1; visibility: visible; }
+        .transfer-loader-content { text-align: center; }
+        .transfer-loader-ring {
+            width: 100px; height: 100px; border: 4px solid rgba(255,51,51,0.2);
+            border-top: 4px solid var(--accent-red); border-radius: 50%;
+            animation: spin 1s linear infinite; margin: 0 auto 32px;
+            box-shadow: 0 0 60px rgba(255,51,51,0.4);
+        }
+        .transfer-loader-text { font-size: 24px; font-weight: 800; letter-spacing: 4px; color: var(--accent-red); }
+        .transfer-loader-sub { font-size: 14px; color: var(--text-tertiary); margin-top: 12px; letter-spacing: 2px; }
+        
+        /* Language Switch Loading Overlay */
+        .lang-loading {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(20px);
+            z-index: 10000; display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: all 0.4s var(--ease-out-expo);
+        }
+        .lang-loading.active { opacity: 1; visibility: visible; }
+        .lang-loader-content { text-align: center; animation: pulseGlow 1.2s infinite; }
+        .lang-loader-icon { width: 80px; height: 80px; background: var(--gradient-red); border-radius: 24px; margin: 0 auto 24px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 40px rgba(255,51,51,0.5); }
+        .lang-loader-icon i { font-size: 36px; color: white; }
+        .lang-loader-text { font-size: 20px; font-weight: 700; letter-spacing: 2px; color: var(--accent-red); }
+        
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        /* Navbar */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            padding: 24px 40px; transition: all 0.5s var(--ease-out-expo);
+        }
+        .navbar.scrolled {
+            background: rgba(10,10,10,0.9); backdrop-filter: blur(30px);
+            border-bottom: 1px solid var(--border); padding: 16px 40px;
+        }
+        .nav-container { max-width: 1600px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+        .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .brand-icon img { height: 48px; width: auto; }
+        .brand-name { font-size: 24px; font-weight: 800; color: var(--text-primary); }
+        .brand-tag { font-size: 10px; color: var(--text-tertiary); letter-spacing: 2px; }
+        
+        /* Language Selector */
+        .language-selector { position: relative; }
+        .lang-btn {
+            display: flex; align-items: center; gap: 10px; padding: 12px 18px;
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+            border-radius: 100px; color: var(--text-secondary); cursor: pointer;
+            transition: all 0.4s;
+        }
+        .lang-btn:hover { border-color: var(--accent-red); color: white; transform: translateY(-2px); }
+        .lang-flag { width: 20px; height: 15px; border-radius: 3px; }
+        .lang-dropdown {
+            position: absolute; top: calc(100% + 12px); right: 0;
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;
+            padding: 10px; min-width: 180px; opacity: 0; visibility: hidden;
+            transform: translateY(-10px); transition: all 0.4s; z-index: 100;
+        }
+        .language-selector.active .lang-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+        .lang-option {
+            display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px 14px;
+            background: none; border: none; border-radius: 10px; color: var(--text-secondary);
+            cursor: pointer; transition: 0.3s;
+        }
+        .lang-option:hover { background: rgba(255,51,51,0.1); color: var(--accent-red); }
+        
+        main { position: relative; z-index: 10; padding-top: 120px; }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center; padding: 60px 40px 40px;
+            animation: fadeInUp 1s var(--ease-out-expo);
+        }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 12px; padding: 12px 24px;
+            background: rgba(255,51,51,0.1); border: 1px solid rgba(255,51,51,0.3);
+            border-radius: 100px; font-size: 13px; font-weight: 600; color: var(--accent-red);
+            margin-bottom: 32px; animation: pulseGlow 2s infinite;
+        }
+        .hero-title {
+            font-size: clamp(44px, 8vw, 80px); font-weight: 900; line-height: 1.1; margin-bottom: 24px;
+        }
+        .hero-title .gradient { background: var(--gradient-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .hero-sub { font-size: 18px; color: var(--text-secondary); max-width: 750px; margin: 0 auto; }
+        
+        /* What is Private Plan Section */
+        .what-is-private {
+            padding: 80px 40px;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .private-features { display: grid; grid-template-columns: repeat(2,1fr); gap: 24px; margin-top: 32px; }
+        .feature-item {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px;
+            padding: 24px; transition: all 0.4s var(--ease-out-expo);
+        }
+        .feature-item:hover { transform: translateY(-8px); border-color: var(--accent-red); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .feature-icon { font-size: 32px; color: var(--accent-red); margin-bottom: 16px; }
+        .feature-title { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+        
+        /* Trust Strip */
+        .trust-strip {
+            display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;
+            padding: 40px; background: var(--bg-tertiary); border-radius: 60px;
+            margin: 60px auto; max-width: 1000px;
+        }
+        .trust-item { text-align: center; }
+        .trust-item i { font-size: 28px; color: var(--accent-red); margin-bottom: 12px; display: block; }
+        
+        /* Plans Grid */
+        .plans-section { padding: 80px 40px; }
+        .section-header { text-align: center; margin-bottom: 64px; }
+        .section-label {
+            display: inline-block; padding: 10px 24px; background: rgba(255,51,51,0.1);
+            border: 1px solid rgba(255,51,51,0.2); border-radius: 100px;
+            font-size: 12px; font-weight: 600; color: var(--accent-red); margin-bottom: 20px;
+        }
+        .section-title { font-size: clamp(36px,5vw,52px); font-weight: 800; margin-bottom: 16px; }
+        .private-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 32px; max-width: 1500px; margin: 0 auto;
+        }
+        .private-card {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 32px;
+            padding: 36px; transition: all 0.5s var(--ease-out-expo); position: relative; overflow: hidden;
+        }
+        .private-card:hover { transform: translateY(-12px); border-color: rgba(255,51,51,0.4); box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 40px rgba(255,51,51,0.15); }
+        .private-badge {
+            position: absolute; top: 16px; right: 16px;
+            background: var(--gradient-red); padding: 6px 14px; border-radius: 100px;
+            font-size: 12px; font-weight: 800; font-family: var(--font-mono);
+        }
+        .card-title { font-size: 28px; font-weight: 800; margin: 16px 0 8px; }
+        .price { font-size: 48px; font-weight: 900; font-family: var(--font-mono); background: var(--gradient-text); -webkit-background-clip: text; background-clip: text; color: transparent; margin: 20px 0; }
+        .price span { font-size: 18px; color: var(--text-tertiary); font-weight: 400; }
+        .spec-list { display: flex; flex-direction: column; gap: 16px; margin: 28px 0; }
+        .spec-item { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--text-secondary); }
+        .spec-item i { width: 24px; color: var(--accent-red); font-size: 16px; }
+        .btn-order {
+            width: 100%; padding: 16px; background: transparent; border: 2px solid var(--border-light);
+            border-radius: 16px; color: var(--text-primary); font-weight: 700; cursor: pointer;
+            transition: all 0.4s; margin-top: 16px;
+        }
+        .btn-order:hover { background: var(--gradient-red); border-color: transparent; transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255,51,51,0.3); }
+        
+        /* Proxy Animation Section */
+        .proxy-section {
+            padding: 100px 40px;
+            background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
+            position: relative; overflow: hidden;
+        }
+        .proxy-animation {
+            position: absolute; inset: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255,51,51,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,51,51,0.08) 0%, transparent 50%);
+            animation: proxyPulse 4s ease-in-out infinite;
+        }
+        @keyframes proxyPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        .proxy-grid {
+            position: absolute; inset: 0;
+            background-image: 
+                linear-gradient(rgba(255,51,51,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,51,51,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: proxyGridMove 20s linear infinite;
+        }
+        @keyframes proxyGridMove {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(60px); }
+        }
+        .proxy-content { position: relative; z-index: 10; max-width: 1200px; margin: 0 auto; text-align: center; }
+        .proxy-stats {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-top: 60px;
+        }
+        .proxy-stat {
+            background: rgba(255,51,51,0.05); border: 1px solid rgba(255,51,51,0.2);
+            border-radius: 24px; padding: 32px 24px; backdrop-filter: blur(10px);
+        }
+        .proxy-stat-number {
+            font-size: 48px; font-weight: 900; color: var(--accent-red);
+            font-family: var(--font-mono); margin-bottom: 8px;
+        }
+        .proxy-stat-label { font-size: 14px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 2px; }
+        
+        /* Community & Contacts Sections */
+        .community-section, .contacts-section {
+            padding: 80px 40px;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+        }
+        .community-card, .contacts-grid {
+            max-width: 1200px; margin: 0 auto;
+        }
+        .community-card {
+            background: var(--bg-card); border-radius: 32px; padding: 48px;
+            border: 1px solid var(--border-light);
+        }
+        .contacts-grid {
+            display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;
+        }
+        .contact-chip {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 100px;
+            padding: 12px 24px; text-decoration: none; color: var(--text-secondary);
+            transition: all 0.3s; display: inline-flex; align-items: center; gap: 10px;
+            font-size: 14px;
+        }
+        .contact-chip:hover { border-color: var(--accent-red); color: var(--accent-red); transform: translateY(-3px); }
+        
+        .info-strip {
+            background: linear-gradient(135deg, rgba(255,51,51,0.08), rgba(0,0,0,0.4));
+            border-radius: 28px; padding: 40px; text-align: center; max-width: 1000px;
+            margin: 60px auto 0; border: 1px solid rgba(255,51,51,0.2);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulseGlow {
+            0%,100% { box-shadow: 0 0 0 0 rgba(255,51,51,0.2); }
+            50% { box-shadow: 0 0 0 10px rgba(255,51,51,0); }
+        }
+        .scroll-reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s var(--ease-out-expo); }
+        .scroll-reveal.revealed { opacity: 1; transform: translateY(0); }
+        
+        footer {
+            background: var(--bg-primary); border-top: 1px solid var(--border);
+            padding: 48px 40px; text-align: center;
+        }
+        .footer-links { margin-top: 20px; display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
+        .footer-links button, .footer-links a { background: none; border: none; color: var(--text-tertiary); cursor: pointer; transition: color 0.3s; text-decoration: none; font-size: 14px; }
+        .footer-links button:hover, .footer-links a:hover { color: var(--accent-red); }
+        
+        @media (max-width: 768px) {
+            .navbar { padding: 16px 24px; }
+            .hero, .what-is-private, .plans-section, .proxy-section, .community-section, .contacts-section { padding: 40px 24px; }
+            .two-col { grid-template-columns: 1fr; gap: 40px; }
+            .private-grid { grid-template-columns: 1fr; }
+            .trust-strip { gap: 24px; padding: 24px; }
+            .community-card { padding: 28px; }
+            .proxy-stats { grid-template-columns: repeat(2, 1fr); }
+            .proxy-stat-number { font-size: 32px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-canvas"></div>
+    <div class="grid-overlay"></div>
+    <div class="noise-overlay"></div>
+    
+    <!-- Transfer Loading Overlay -->
+    <div class="transfer-loading" id="transferLoading">
+        <div class="transfer-loader-content">
+            <div class="transfer-loader-ring"></div>
+            <div class="transfer-loader-text" data-key="transferText">TRANSFERRING</div>
+            <div class="transfer-loader-sub" data-key="transferSub">Initializing Private Infrastructure...</div>
+        </div>
+    </div>
+    
+    <!-- Language Switch Loading Overlay -->
+    <div class="lang-loading" id="langLoading">
+        <div class="lang-loader-content">
+            <div class="lang-loader-icon"><i class="fas fa-globe"></i></div>
+            <div class="lang-loader-text" data-key="loadingText">SWITCHING LANGUAGE</div>
+        </div>
+    </div>
+    
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="brand">
+          
+                <div><span class="brand-name">KILLBYTE SOLUTIONS</span><div class="brand-tag">PRIVATE EXTREME PLANS</div></div>
+            </a>
+            <div class="language-selector" id="langSelector">
+                <button class="lang-btn" id="langBtn">
+                    <img src="https://flagcdn.com/w20/gb.png" alt="EN" class="lang-flag"><span>EN</span><i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="lang-dropdown" id="langDropdown">
+                    <button class="lang-option" data-lang="en"><img src="https://flagcdn.com/w20/gb.png"><span>English</span></button>
+                    <button class="lang-option" data-lang="cn"><img src="https://flagcdn.com/w20/cn.png"><span>中文</span></button>
+                    <button class="lang-option" data-lang="ru"><img src="https://flagcdn.com/w20/ru.png"><span>Русский</span></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <main>
+        <!-- Hero -->
+        <div class="hero">
+            <div class="hero-badge"><i class="fas fa-skull"></i> <span data-key="badge">EXTREME PRIVATE INFRASTRUCTURE</span></div>
+            <h1 class="hero-title"><span data-key="heroTitle1">Unmatched Annihilation Power.</span><br><span class="gradient" data-key="heroTitle2">Zero Sharing. Absolute Trust.</span></h1>
+            <p class="hero-sub" data-key="heroDesc">Dedicated slots · Isolated private servers · Reserved bandwidth · Largest global proxy pool · 24/7 white‑glove engineering support. No compromises. Ever.</p>
+        </div>
+        
+        <!-- What is a Private Plan? (Extreme wording) -->
+        <div class="what-is-private scroll-reveal">
+            <div class="container two-col">
+                <div>
+                    <div class="section-label" data-key="whatLabel">The KillByte Extreme Difference</div>
+                    <h2 class="section-title" style="text-align:left;" data-key="whatTitle">What is an Extreme Private Plan?</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 24px;" data-key="whatDesc1">Unlike shared plans where resources are distributed among multiple clients, our Extreme Private infrastructure guarantees <strong>exclusive, uncontested, overwhelming power</strong>. Every private plan includes:</p>
+                    <ul style="color: var(--text-secondary); list-style: none;">
+                        <li style="margin-bottom: 12px;"><i class="fas fa-check-circle" style="color:#00ff88; margin-right: 12px;"></i> <span data-key="whatLi1">Dedicated attack slots - no queuing, no throttling, no limits</span></li>
+                        <li style="margin-bottom: 12px;"><i class="fas fa-check-circle" style="color:#00ff88; margin-right: 12px;"></i> <span data-key="whatLi2">Isolated server nodes - your traffic never mixes with others</span></li>
+                        <li style="margin-bottom: 12px;"><i class="fas fa-check-circle" style="color:#00ff88; margin-right: 12px;"></i> <span data-key="whatLi3">Reserved L7/L4 capacity - guaranteed minimum performance, often exceeded</span></li>
+                        <li style="margin-bottom: 12px;"><i class="fas fa-check-circle" style="color:#00ff88; margin-right: 12px;"></i> <span data-key="whatLi4">Direct engineering access - 5-30 minute SLAs, phone bridge for emergencies</span></li>
+                    </ul>
+                </div>
+                <div class="private-features">
+                    <div class="feature-item"><div class="feature-icon"><i class="fas fa-bolt"></i></div><div class="feature-title" data-key="feat1Title">Uncontested Overkill</div><div data-key="feat1Desc">Reserved 80M - 350M+ Rq/s L7, up to 1.2+ Tbps L4. No sharing. Pure annihilation.</div></div>
+                    <div class="feature-item"><div class="feature-icon"><i class="fas fa-globe"></i></div><div class="feature-title" data-key="feat2Title">Global Proxy Megapool</div><div data-key="feat2Desc">2.5M+ residential & mobile IPs - ethically sourced from largest commercial networks.</div></div>
+                    <div class="feature-item"><div class="feature-icon"><i class="fas fa-headset"></i></div><div class="feature-title" data-key="feat3Title">24/7 White‑Glove War Room</div><div data-key="feat3Desc">Dedicated Telegram, Signal, phone bridge for emergencies. Real humans, instant response.</div></div>
+                    <div class="feature-item"><div class="feature-icon"><i class="fas fa-skull"></i></div><div class="feature-title" data-key="feat4Title">Zero‑Day Bypass Arsenal</div><div data-key="feat4Desc">Weekly updated L7 bypass methods. Cloudflare, DDoS-Guard, AWS Shield - none survive.</div></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Trust Strip -->
+        <div class="trust-strip scroll-reveal">
+            <div class="trust-item"><i class="fas fa-database"></i><span data-key="trust1">No Logs Policy</span></div>
+            <div class="trust-item"><i class="fas fa-clock"></i><span data-key="trust2">99.9% Uptime SLA</span></div>
+            <div class="trust-item"><i class="fas fa-lock"></i><span data-key="trust3">Encrypted Comms</span></div>
+            <div class="trust-item"><i class="fas fa-handshake"></i><span data-key="trust4">Trusted Since 2024</span></div>
+            <div class="trust-item"><i class="fas fa-trophy"></i><span data-key="trust5">0 Scams · 0 History</span></div>
+        </div>
+        
+        <!-- Private Extreme Plans Grid -->
+        <div class="plans-section">
+            <div class="section-header scroll-reveal">
+                <div class="section-label" data-key="plansLabel">Extreme Private Tiers</div>
+                <h2 class="section-title" data-key="plansTitle">Private Plans</h2>
+                <p class="hero-sub" data-key="plansDesc">Choose your level of absolute dominance. All plans include geo‑targeting, full proxy pool access, and priority global routing.</p>
+            </div>
+            
+            <div class="private-grid">
+                <!-- Private #1 -->
+                <div class="private-card scroll-reveal"><div class="private-badge">Private #1</div>
+                    <div class="card-title" data-key="p1_name">Extreme Bastion</div>
+                    <div class="price">$1,500 <span data-key="per_month">/month</span></div>
+                    <div class="spec-list">
+                        <div class="spec-item"><i class="fas fa-bolt"></i> <span data-key="p1_slots">5 concurrent slots · 1 dedicated node</span></div>
+                        <div class="spec-item"><i class="fas fa-chart-line"></i> <span data-key="p1_power">80M Rq/s L7 | 280 Gbps L4</span></div>
+                        <div class="spec-item"><i class="fas fa-globe"></i> <span data-key="p1_geo">Geo-target: 3 source countries</span></div>
+                        <div class="spec-item"><i class="fas fa-database"></i> <span data-key="p1_proxy">500k proxy pool (residential+mobile)</span></div>
+                        <div class="spec-item"><i class="fas fa-headset"></i> <span data-key="p1_support">24/7 support, 30min SLA</span></div>
+                        <div class="spec-item"><i class="fas fa-clock"></i> <span data-key="p1_duration">600s duration, no cooldown</span></div>
+                    </div>
+                    <button class="btn-order" data-key="order_btn" onclick="orderPlan('Private #1')">Request Access →</button>
+                </div>
+                <!-- Private #2 -->
+                <div class="private-card scroll-reveal"><div class="private-badge">Private #2</div>
+                    <div class="card-title" data-key="p2_name">Extreme Dominion</div>
+                    <div class="price">$2,500 <span data-key="per_month">/month</span></div>
+                    <div class="spec-list">
+                        <div class="spec-item"><i class="fas fa-bolt"></i> <span data-key="p2_slots">8 slots · 2 dedicated nodes (multi-region)</span></div>
+                        <div class="spec-item"><i class="fas fa-chart-line"></i> <span data-key="p2_power">140M Rq/s L7 | 450 Gbps L4</span></div>
+                        <div class="spec-item"><i class="fas fa-globe"></i> <span data-key="p2_geo">10 countries + ASN‑level filtering</span></div>
+                        <div class="spec-item"><i class="fas fa-database"></i> <span data-key="p2_proxy">1.2M proxy pool, rotation 30s</span></div>
+                        <div class="spec-item"><i class="fas fa-headset"></i> <span data-key="p2_support">Priority support, 15min SLA</span></div>
+                        <div class="spec-item"><i class="fas fa-clock"></i> <span data-key="p2_duration">900s duration, unlimited attacks</span></div>
+                    </div>
+                    <button class="btn-order" data-key="order_btn" onclick="orderPlan('Private #2')">Request Access →</button>
+                </div>
+                <!-- Private #3 -->
+                <div class="private-card scroll-reveal"><div class="private-badge">Private #3</div>
+                    <div class="card-title" data-key="p3_name">Extreme Supremacy</div>
+                    <div class="price">$4,000 <span data-key="per_month">/month</span></div>
+                    <div class="spec-list">
+                        <div class="spec-item"><i class="fas fa-bolt"></i> <span data-key="p3_slots">12 slots · 3 redundant nodes</span></div>
+                        <div class="spec-item"><i class="fas fa-chart-line"></i> <span data-key="p3_power">220M Rq/s L7 | 700 Gbps L4</span></div>
+                        <div class="spec-item"><i class="fas fa-globe"></i> <span data-key="p3_geo">Unlimited countries, city‑level, ISP filters</span></div>
+                        <div class="spec-item"><i class="fas fa-database"></i> <span data-key="p3_proxy">2M proxy pool, adaptive rotation</span></div>
+                        <div class="spec-item"><i class="fas fa-headset"></i> <span data-key="p3_support">5min SLA, phone/Signal bridge</span></div>
+                        <div class="spec-item"><i class="fas fa-clock"></i> <span data-key="p3_duration">1200s duration, reflection amplification</span></div>
+                    </div>
+                    <button class="btn-order" data-key="order_btn" onclick="orderPlan('Private #3')">Request Access →</button>
+                </div>
+                <!-- Private #4 -->
+                <div class="private-card scroll-reveal"><div class="private-badge">Private #4</div>
+                    <div class="card-title" data-key="p4_name">Extreme Omnipotence</div>
+                    <div class="price">$6,000 <span data-key="per_month">/month</span></div>
+                    <div class="spec-list">
+                        <div class="spec-item"><i class="fas fa-bolt"></i> <span data-key="p4_slots">20+ slots (unlimited) · 5 global nodes</span></div>
+                        <div class="spec-item"><i class="fas fa-chart-line"></i> <span data-key="p4_power">350M+ Rq/s L7 | 1.2+ Tbps L4</span></div>
+                        <div class="spec-item"><i class="fas fa-globe"></i> <span data-key="p4_geo">Any geo, 50 source regions simultaneously</span></div>
+                        <div class="spec-item"><i class="fas fa-database"></i> <span data-key="p4_proxy">2.5M+ IPs (largest commercial pool)</span></div>
+                        <div class="spec-item"><i class="fas fa-headset"></i> <span data-key="p4_support">White‑glove 24/7, AI‑driven rotation</span></div>
+                        <div class="spec-item"><i class="fas fa-infinity"></i> <span data-key="p4_duration">Unlimited duration, zero‑day bypass</span></div>
+                    </div>
+                    <button class="btn-order" data-key="order_btn" onclick="orderPlan('Private #4')">Request Access →</button>
+                </div>
+            </div>
+            
+            <div class="info-strip scroll-reveal">
+                <i class="fas fa-globe-americas" style="font-size: 36px; color: var(--accent-red); margin-bottom: 16px; display: block;"></i>
+                <p data-key="info_text"><strong>Global proxy pool integration — we hire the largest commercial proxy networks (2.5M+ residential & mobile IPs).</strong> All private plans include native geo‑targeting, API access, zero‑log policy, and priority infrastructure routing.</p>
+            </div>
+        </div>
+        
+        <!-- Heavy Proxy Animation Section -->
+        <div class="proxy-section scroll-reveal">
+            <div class="proxy-animation"></div>
+            <div class="proxy-grid"></div>
+            <div class="proxy-content">
+                <div class="section-label" data-key="proxyLabel">Global Proxy Infrastructure</div>
+                <h2 class="section-title" data-key="proxyTitle">2.5 Million+ IPs. Worldwide Coverage.</h2>
+                <p class="hero-sub" data-key="proxyDesc" style="max-width: 800px; margin: 0 auto;">Our proxy megapool spans 195+ countries with real residential and mobile connections. Ethically sourced from Tier-1 commercial networks, rotated every 30 seconds for maximum anonymity and success rates.</p>
+                
+                <div class="proxy-stats">
+                    <div class="proxy-stat">
+                        <div class="proxy-stat-number">2.5M+</div>
+                        <div class="proxy-stat-label" data-key="stat1">Total IPs</div>
+                    </div>
+                    <div class="proxy-stat">
+                        <div class="proxy-stat-number">195+</div>
+                        <div class="proxy-stat-label" data-key="stat2">Countries</div>
+                    </div>
+                    <div class="proxy-stat">
+                        <div class="proxy-stat-number">30s</div>
+                        <div class="proxy-stat-label" data-key="stat3">Rotation</div>
+                    </div>
+                    <div class="proxy-stat">
+                        <div class="proxy-stat-number">99.7%</div>
+                        <div class="proxy-stat-label" data-key="stat4">Success Rate</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Community Update Section (Trust & Transparency) -->
+        <div class="community-section scroll-reveal">
+            <div class="section-header">
+                <div class="section-label" data-key="communityLabel">Community Update</div>
+                <h2 class="section-title" data-key="communityTitle">Trust. Transparency. Unmatched Reliability.</h2>
+            </div>
+            <div class="community-card">
+                <p style="margin-bottom: 20px; font-size: 16px; line-height: 1.7;" data-key="communityText1">We would like to take a moment to sincerely thank everyone who has supported KillByte throughout our journey. From 2024 to 2026, our community has continued to grow through trust, dedication, and consistent service.</p>
+                <p style="margin-bottom: 20px;" data-key="communityText2">During this period, KillByte has focused on delivering reliable and professional infrastructure services. We are proud to say that our record remains completely clean. There have been no scams, no dishonest practices, and no negative history. Our goal has always been to provide stable services while maintaining transparency and professionalism for every user who relies on us.</p>
+                <p style="margin-bottom: 20px;" data-key="communityText3">As a leading provider in the space, KillByte offers powerful infrastructure solutions designed for high-performance operations. Whether you require Layer 7 or Layer 4 capabilities, our infrastructure is built to deliver unmatched power and reliability. With advanced technology backing our platform, we ensure that every operation runs smoothly and effectively.</p>
+                <p style="margin-bottom: 20px;" data-key="communityText4">More importantly, KillByte would not be where it is today without the support of our community. Every member who joined, trusted, and supported the project has played a role in building what KillByte has become today.</p>
+                <p style="font-weight: 700; color: var(--accent-red);" data-key="communityText5">Thank you for your continued trust and support. — KillByte Team</p>
+            </div>
+        </div>
+        
+        <!-- Official Contacts Section -->
+        <div class="contacts-section scroll-reveal">
+            <div class="section-header">
+                <div class="section-label" data-key="contactsLabel">Official Channels</div>
+                <h2 class="section-title" data-key="contactsTitle">Connect With Us</h2>
+            </div>
+            <div class="contacts-grid">
+                <a href="https://t.me/+eF2cU5fVUxU3ZDcx" target="_blank" class="contact-chip"><i class="fab fa-telegram"></i> KillByteSolutions</a>
+                <a href="https://killbyte.cc/" target="_blank" class="contact-chip"><i class="fas fa-globe"></i> KillByteCC</a>
+                <a href="https://killbyte.cc/tos" target="_blank" class="contact-chip"><i class="fas fa-file-alt"></i> TermsOfService</a>
+                <a href="https://killbyte.cc/#terminal" target="_blank" class="contact-chip"><i class="fas fa-terminal"></i> DemoTerminal</a>
+                <a href="https://killbyte.cc/#plans" target="_blank" class="contact-chip"><i class="fas fa-tags"></i> KillBytePricelist</a>
+                <a href="https://t.me/addlist/TU8lnQMAZMk0OTU1" target="_blank" class="contact-chip"><i class="fas fa-list"></i> KillByteAddlist</a>
+                <a href="https://t.me/killbytebackup" target="_blank" class="contact-chip"><i class="fas fa-shield-alt"></i> KillByteBackup</a>
+                <a href="https://t.me/KillBytePowerShow" target="_blank" class="contact-chip"><i class="fas fa-chart-line"></i> PowerProofs</a>
+                <a href="http://t.me/KillByte_Support_Bot" target="_blank" class="contact-chip"><i class="fas fa-headset"></i> KillByteSupport</a>
+                <a href="http://t.me/killbytevouch" target="_blank" class="contact-chip"><i class="fas fa-star"></i> KillByteVouches</a>
+                <a href="https://t.me/rankflood" target="_blank" class="contact-chip"><i class="fas fa-user-shield"></i> Admin</a>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p data-key="footer_text">© 2026 KillByte Solutions — Private Extreme Infrastructure Division. Redefining Power. Delivering Trust.</p>
+        <div class="footer-links">
+            <button onclick="window.open('https://t.me/rankflood','_blank')" data-key="contact_admin">Contact Admin (@rankflood)</button>
+            <button onclick="window.open('http://t.me/KillByte_Support_Bot','_blank')" data-key="support_bot">Support Bot</button>
+            <a href="https://killbyte.cc/tos" data-key="terms_link">Terms of Service</a>
+        </div>
+    </footer>
+    
+    <script>
+        // ========== TRANSLATIONS (EN, CN, RU) with all new texts ==========
+        const translations = {
+            en: {
+                transferText: "TRANSFERRING",
+                transferSub: "Initializing Private Infrastructure...",
+                loadingText: "SWITCHING LANGUAGE",
+                badge: "EXTREME PRIVATE INFRASTRUCTURE",
+                heroTitle1: "Unmatched Annihilation Power.",
+                heroTitle2: "Zero Sharing. Absolute Trust.",
+                heroDesc: "Dedicated slots · Isolated private servers · Reserved bandwidth · Largest global proxy pool · 24/7 white‑glove engineering support. No compromises. Ever.",
+                whatLabel: "The KillByte Extreme Difference",
+                whatTitle: "What is an Extreme Private Plan?",
+                whatDesc1: "Unlike shared plans where resources are distributed among multiple clients, our Extreme Private infrastructure guarantees exclusive, uncontested, overwhelming power. Every private plan includes:",
+                whatLi1: "Dedicated attack slots - no queuing, no throttling, no limits",
+                whatLi2: "Isolated server nodes - your traffic never mixes with others",
+                whatLi3: "Reserved L7/L4 capacity - guaranteed minimum performance, often exceeded",
+                whatLi4: "Direct engineering access - 5-30 minute SLAs, phone bridge for emergencies",
+                feat1Title: "Uncontested Overkill", feat1Desc: "Reserved 80M - 350M+ Rq/s L7, up to 1.2+ Tbps L4. No sharing. Pure annihilation.",
+                feat2Title: "Global Proxy Megapool", feat2Desc: "2.5M+ residential & mobile IPs - ethically sourced from largest commercial networks.",
+                feat3Title: "24/7 White‑Glove War Room", feat3Desc: "Dedicated Telegram, Signal, phone bridge for emergencies. Real humans, instant response.",
+                feat4Title: "Zero‑Day Bypass Arsenal", feat4Desc: "Weekly updated L7 bypass methods. Cloudflare, DDoS-Guard, AWS Shield - none survive.",
+                trust1: "No Logs Policy", trust2: "99.9% Uptime SLA", trust3: "Encrypted Comms", trust4: "Trusted Since 2024", trust5: "0 Scams · 0 History",
+                plansLabel: "Extreme Private Tiers", plansTitle: "Private Plans", plansDesc: "Choose your level of absolute dominance. All plans include geo‑targeting, full proxy pool access, and priority global routing.",
+                per_month: "/month", order_btn: "Request Access →",
+                p1_name: "Extreme Bastion", p1_slots: "5 concurrent slots · 1 dedicated node", p1_power: "80M Rq/s L7 | 280 Gbps L4", p1_geo: "Geo-target: 3 source countries", p1_proxy: "500k proxy pool (residential+mobile)", p1_support: "24/7 support, 30min SLA", p1_duration: "600s duration, no cooldown",
+                p2_name: "Extreme Dominion", p2_slots: "8 slots · 2 dedicated nodes (multi-region)", p2_power: "140M Rq/s L7 | 450 Gbps L4", p2_geo: "10 countries + ASN‑level filtering", p2_proxy: "1.2M proxy pool, rotation 30s", p2_support: "Priority support, 15min SLA", p2_duration: "900s duration, unlimited attacks",
+                p3_name: "Extreme Supremacy", p3_slots: "12 slots · 3 redundant nodes", p3_power: "220M Rq/s L7 | 700 Gbps L4", p3_geo: "Unlimited countries, city‑level, ISP filters", p3_proxy: "2M proxy pool, adaptive rotation", p3_support: "5min SLA, phone/Signal bridge", p3_duration: "1200s duration, reflection amplification",
+                p4_name: "Extreme Omnipotence", p4_slots: "20+ slots (unlimited) · 5 global nodes", p4_power: "350M+ Rq/s L7 | 1.2+ Tbps L4", p4_geo: "Any geo, 50 source regions simultaneously", p4_proxy: "2.5M+ IPs (largest commercial pool)", p4_support: "White‑glove 24/7, AI‑driven rotation", p4_duration: "Unlimited duration, zero‑day bypass",
+                proxyLabel: "Global Proxy Infrastructure", proxyTitle: "2.5 Million+ IPs. Worldwide Coverage.", proxyDesc: "Our proxy megapool spans 195+ countries with real residential and mobile connections. Ethically sourced from Tier-1 commercial networks, rotated every 30 seconds for maximum anonymity and success rates.",
+                stat1: "Total IPs", stat2: "Countries", stat3: "Rotation", stat4: "Success Rate",
+                info_text: "Global proxy pool integration — we hire the largest commercial proxy networks (2.5M+ residential & mobile IPs). All private plans include native geo‑targeting, API access, zero‑log policy, and priority infrastructure routing.",
+                communityLabel: "Community Update", communityTitle: "Trust. Transparency. Unmatched Reliability.",
+                communityText1: "We would like to take a moment to sincerely thank everyone who has supported KillByte throughout our journey. From 2024 to 2026, our community has continued to grow through trust, dedication, and consistent service.",
+                communityText2: "During this period, KillByte has focused on delivering reliable and professional infrastructure services. We are proud to say that our record remains completely clean. There have been no scams, no dishonest practices, and no negative history. Our goal has always been to provide stable services while maintaining transparency and professionalism for every user who relies on us.",
+                communityText3: "As a leading provider in the space, KillByte offers powerful infrastructure solutions designed for high-performance operations. Whether you require Layer 7 or Layer 4 capabilities, our infrastructure is built to deliver unmatched power and reliability. With advanced technology backing our platform, we ensure that every operation runs smoothly and effectively.",
+                communityText4: "More importantly, KillByte would not be where it is today without the support of our community. Every member who joined, trusted, and supported the project has played a role in building what KillByte has become today.",
+                communityText5: "Thank you for your continued trust and support. — KillByte Team",
+                contactsLabel: "Official Channels", contactsTitle: "Connect With Us",
+                footer_text: "© 2026 KillByte Solutions — Private Extreme Infrastructure Division. Redefining Power. Delivering Trust.",
+                contact_admin: "Contact Admin (@rankflood)", support_bot: "Support Bot", terms_link: "Terms of Service"
+            },
+            cn: {
+                transferText: "正在传输",
+                transferSub: "初始化私有基础设施...",
+                loadingText: "切换语言",
+                badge: "极端私有基础设施", heroTitle1: "无与伦比的歼灭力量。", heroTitle2: "零共享。绝对信任。", heroDesc: "专用槽位 · 隔离私有服务器 · 保留带宽 · 全球最大代理池 · 24/7 白手套工程支持。绝不妥协。",
+                whatLabel: "KillByte 极端差异", whatTitle: "什么是极端私有方案？", whatDesc1: "与资源分散给多个客户的共享方案不同，我们的极端私有基础设施保证独占、无竞争、压倒性的力量。每个私有方案包括：",
+                whatLi1: "专用攻击槽位 - 无排队，无限流，无限制", whatLi2: "隔离服务器节点 - 您的流量永不混合", whatLi3: "保留 L7/L4 容量 - 保证最低性能，通常超额", whatLi4: "直接工程支持 - 5-30分钟 SLA，紧急电话桥接",
+                feat1Title: "无竞争过杀", feat1Desc: "保留 8000万 - 3.5亿+ Rq/s L7，高达 1.2+ Tbps L4。无共享。纯粹歼灭。",
+                feat2Title: "全球代理巨池", feat2Desc: "250万+ 住宅和移动 IP - 从最大商业网络道德获取。",
+                feat3Title: "24/7 白手套作战室", feat3Desc: "专属 Telegram、Signal、紧急电话桥接。真人支持，即时响应。",
+                feat4Title: "零日绕过武器库", feat4Desc: "每周更新的 L7 绕过方法。Cloudflare、DDoS-Guard、AWS Shield - 无一幸存。",
+                trust1: "无日志政策", trust2: "99.9% 正常运行时间 SLA", trust3: "加密通信", trust4: "自2024年信赖", trust5: "0欺诈 · 0不良记录",
+                plansLabel: "极端私有等级", plansTitle: "Private Plans", plansDesc: "选择您的绝对统治级别。所有方案包含地理定位、完整代理池访问和优先全球路由。",
+                per_month: "/月", order_btn: "申请访问 →",
+                p1_name: "极端堡垒", p1_slots: "5 并发槽位 · 1 专用节点", p1_power: "8000万 Rq/s L7 | 280 Gbps L4", p1_geo: "地理定位：3个源国家", p1_proxy: "50万代理池（住宅+移动）", p1_support: "24/7支持，30分钟响应", p1_duration: "600秒持续，无冷却",
+                p2_name: "极端主宰", p2_slots: "8 槽位 · 2 专用节点（多区域）", p2_power: "1.4亿 Rq/s L7 | 450 Gbps L4", p2_geo: "10个国家 + ASN级过滤", p2_proxy: "120万代理池，30秒轮换", p2_support: "优先支持，15分钟响应", p2_duration: "900秒持续，无限攻击",
+                p3_name: "极端至尊", p3_slots: "12 槽位 · 3 冗余节点", p3_power: "2.2亿 Rq/s L7 | 700 Gbps L4", p3_geo: "无限国家，城市级，ISP过滤", p3_proxy: "200万代理池，自适应轮换", p3_support: "5分钟响应，电话/Signal紧急联系", p3_duration: "1200秒持续，反射放大",
+                p4_name: "极端全能", p4_slots: "20+ 槽位（无限）· 5个全球节点", p4_power: "3.5亿+ Rq/s L7 | 1.2+ Tbps L4", p4_geo: "任意地理位置，同时50个源区域", p4_proxy: "250万+ IP（最大商业池）", p4_support: "白手套24/7，AI驱动轮换", p4_duration: "无限持续时间，零日绕过",
+                proxyLabel: "全球代理基础设施", proxyTitle: "250万+ IP。全球覆盖。", proxyDesc: "我们的代理巨池覆盖195+国家，拥有真实住宅和移动连接。从一级商业网络道德获取，每30秒轮换一次，实现最大匿名性和成功率。",
+                stat1: "总IP数", stat2: "国家", stat3: "轮换", stat4: "成功率",
+                info_text: "全球代理池整合 — 我们雇佣最大的商业代理网络（250万+住宅和移动IP）。所有私有方案包含原生地理定位、API访问、零日志政策和优先基础设施路由。",
+                communityLabel: "社区更新", communityTitle: "信任。透明。无与伦比的可靠性。",
+                communityText1: "我们衷心感谢每一位在KillByte旅程中支持我们的人。从2024年到2026年，我们的社区通过信任、奉献和持续的服务不断发展。",
+                communityText2: "在此期间，KillByte专注于提供可靠和专业的基础设施服务。我们自豪地说，我们的记录完全干净。没有欺诈，没有不诚实的做法，没有负面历史。我们的目标始终是为每一位依赖我们的用户提供稳定的服务，同时保持透明度和专业性。",
+                communityText3: "作为该领域的领先提供商，KillByte提供专为高性能操作设计的强大基础设施解决方案。无论您需要第7层还是第4层能力，我们的基础设施都能提供无与伦比的力量和可靠性。先进技术支撑我们的平台，确保每次操作顺利有效。",
+                communityText4: "更重要的是，没有社区的支持，KillByte就不会有今天的成就。每一位加入、信任和支持该项目的成员都在塑造今天的KillByte中发挥了作用。",
+                communityText5: "感谢您持续的信任和支持。 — KillByte团队",
+                contactsLabel: "官方渠道", contactsTitle: "联系我们",
+                footer_text: "© 2026 KillByte 解决方案 — 私有极端基础设施部门。重新定义力量。传递信任。",
+                contact_admin: "联系管理员 (@rankflood)", support_bot: "支持机器人", terms_link: "服务条款"
+            },
+            ru: {
+                transferText: "ПЕРЕДАЧА",
+                transferSub: "Инициализация приватной инфраструктуры...",
+                loadingText: "СМЕНА ЯЗЫКА", badge: "ЭКСТРЕМАЛЬНАЯ ПРИВАТНАЯ ИНФРАСТРУКТУРА", heroTitle1: "Непревзойденная сила уничтожения.", heroTitle2: "Без разделения. Абсолютное доверие.", heroDesc: "Выделенные слоты · Изолированные серверы · Зарезервированная пропускная способность · Крупнейший прокси-пул · 24/7 white‑glove поддержка. Без компромиссов. Никогда.",
+                whatLabel: "Экстремальное отличие KillByte", whatTitle: "Что такое экстремальный приватный план?", whatDesc1: "В отличие от общих планов, где ресурсы распределяются между клиентами, наша экстремальная приватная инфраструктура гарантирует эксклюзивную, бесспорную, подавляющую мощность. Каждый приватный план включает:",
+                whatLi1: "Выделенные слоты - без очередей, без лимитов, без ограничений", whatLi2: "Изолированные узлы - ваш трафик никогда не смешивается", whatLi3: "Зарезервированная мощность L7/L4 - гарантированная производительность, часто превышенная", whatLi4: "Прямой инжиниринг - SLA 5-30 минут, телефонный мост для экстренных случаев",
+                feat1Title: "Бесспорный оверкилл", feat1Desc: "Зарезервировано 80M - 350M+ Rq/s L7, до 1.2+ Тбит/с L4. Без разделения. Чистое уничтожение.",
+                feat2Title: "Глобальный прокси-мегапул", feat2Desc: "2.5M+ резидентных и мобильных IP - этично получены от крупнейших сетей.",
+                feat3Title: "24/7 White‑Glove комната войны", feat3Desc: "Выделенный Telegram, Signal, телефонный мост. Реальные люди, мгновенный ответ.",
+                feat4Title: "Арсенал zero‑day обходов", feat4Desc: "Еженедельно обновляемые методы обхода L7. Cloudflare, DDoS-Guard, AWS Shield - никто не выживает.",
+                trust1: "Политика без логов", trust2: "SLA 99.9% аптайма", trust3: "Шифрованная связь", trust4: "Доверие с 2024", trust5: "0 мошенничества · 0 истории",
+                plansLabel: "Экстремальные приватные уровни", plansTitle: "Private Plans", plansDesc: "Выберите уровень абсолютного доминирования. Все планы включают геотаргетинг, полный доступ к прокси-пулу и приоритетную глобальную маршрутизацию.",
+                per_month: "/мес", order_btn: "Запросить доступ →",
+                p1_name: "Экстремальный Бастион", p1_slots: "5 слотов · 1 выделенный узел", p1_power: "80M Rq/s L7 | 280 Гбит/с L4", p1_geo: "Геотаргетинг: 3 страны", p1_proxy: "500k прокси (резидентные+мобильные)", p1_support: "24/7 поддержка, SLA 30 мин", p1_duration: "600 сек, без задержек",
+                p2_name: "Экстремальный Доминион", p2_slots: "8 слотов · 2 узла (мультирегион)", p2_power: "140M Rq/s L7 | 450 Гбит/с L4", p2_geo: "10 стран + фильтрация по ASN", p2_proxy: "1.2M прокси, ротация 30с", p2_support: "Приоритет, SLA 15 мин", p2_duration: "900 сек, безлимитные атаки",
+                p3_name: "Экстремальное Верховенство", p3_slots: "12 слотов · 3 резервных узла", p3_power: "220M Rq/s L7 | 700 Гбит/с L4", p3_geo: "Неограниченные страны, города, ISP", p3_proxy: "2M прокси, адаптивная ротация", p3_support: "SLA 5 мин, телефон/Signal", p3_duration: "1200 сек, рефлексивное усиление",
+                p4_name: "Экстремальное Всемогущество", p4_slots: "20+ слотов (безлимит) · 5 глобальных узлов", p4_power: "350M+ Rq/s L7 | 1.2+ Тбит/с L4", p4_geo: "Любая геолокация, 50 регионов одновременно", p4_proxy: "2.5M+ IP (крупнейший пул)", p4_support: "White-glove 24/7, AI-ротация", p4_duration: "Безлимитная длительность, zero-day обход",
+                proxyLabel: "Глобальная прокси-инфраструктура", proxyTitle: "2.5+ миллиона IP. Мировое покрытие.", proxyDesc: "Наш прокси-мегапул охватывает 195+ стран с реальными резидентными и мобильными подключениями. Этично получены от сетей Tier-1, ротация каждые 30 секунд для максимальной анонимности и успеха.",
+                stat1: "Всего IP", stat2: "Стран", stat3: "Ротация", stat4: "Успех",
+                info_text: "Интеграция глобального прокси-пула — мы нанимаем крупнейшие коммерческие прокси-сети (2.5M+ резидентных и мобильных IP). Все приватные планы включают геотаргетинг, API-доступ, политику нулевых логов и приоритетную маршрутизацию.",
+                communityLabel: "Обновление сообщества", communityTitle: "Доверие. Прозрачность. Непревзойденная надежность.",
+                communityText1: "Мы хотим искренне поблагодарить каждого, кто поддерживал KillByte на нашем пути. С 2024 по 2026 год наше сообщество продолжало расти благодаря доверию, преданности и постоянному обслуживанию.",
+                communityText2: "За этот период KillByte сосредоточился на предоставлении надежных и профессиональных инфраструктурных услуг. Мы гордимся тем, что наша репутация остается безупречной. Не было мошенничества, нечестных практик и негативной истории. Наша цель всегда состояла в том, чтобы предоставлять стабильные услуги, сохраняя прозрачность и профессионализм для каждого пользователя, который полагается на нас.",
+                communityText3: "Как ведущий поставщик в этой области, KillByte предлагает мощные инфраструктурные решения, предназначенные для высокопроизводительных операций. Независимо от того, требуются ли вам возможности уровня 7 или уровня 4, наша инфраструктура создана для обеспечения непревзойденной мощности и надежности. Передовые технологии поддерживают нашу платформу, гарантируя, что каждая операция проходит гладко и эффективно.",
+                communityText4: "Что еще более важно, KillByte не был бы там, где он сегодня, без поддержки нашего сообщества. Каждый участник, который присоединился, доверился и поддержал проект, сыграл роль в создании того, чем KillByte стал сегодня.",
+                communityText5: "Спасибо за ваше постоянное доверие и поддержку. — Команда KillByte",
+                contactsLabel: "Официальные каналы", contactsTitle: "Связаться с нами",
+                footer_text: "© 2026 KillByte Solutions — Отдел экстремальной приватной инфраструктуры. Переопределяя мощь. Давая доверие.",
+                contact_admin: "Связаться с админом (@rankflood)", support_bot: "Бот поддержки", terms_link: "Условия использования"
+            }
+        };
+        
+        let currentLang = 'en';
+        let isChanging = false;
+        
+        // Show transfer loading on page load
+        window.addEventListener('load', () => {
+            const transferOverlay = document.getElementById('transferLoading');
+            if (transferOverlay) {
+                transferOverlay.classList.add('active');
+                setTimeout(() => {
+                    transferOverlay.classList.remove('active');
+                }, 2000);
+            }
+        });
+        
+        async function setLanguage(lang) {
+            if (!translations[lang] || isChanging) return;
+            isChanging = true;
+            const loadingOverlay = document.getElementById('langLoading');
+            if (loadingOverlay) loadingOverlay.classList.add('active');
+            await new Promise(r => setTimeout(r, 1500)); // 1.5s loading animation
+            
+            currentLang = lang;
+            const t = translations[lang];
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (t[key] !== undefined) el.innerHTML = t[key];
+            });
+            const flagImg = document.querySelector('.lang-btn .lang-flag');
+            const flagText = document.querySelector('.lang-btn span');
+            if (lang === 'en') { flagImg.src = 'https://flagcdn.com/w20/gb.png'; flagText.innerText = 'EN'; }
+            else if (lang === 'cn') { flagImg.src = 'https://flagcdn.com/w20/cn.png'; flagText.innerText = '中文'; }
+            else if (lang === 'ru') { flagImg.src = 'https://flagcdn.com/w20/ru.png'; flagText.innerText = 'RU'; }
+            localStorage.setItem('kb_lang', lang);
+            
+            if (loadingOverlay) loadingOverlay.classList.remove('active');
+            isChanging = false;
+        }
+        
+        const langSelector = document.getElementById('langSelector');
+        const langBtn = document.getElementById('langBtn');
+        if (langBtn) {
+            langBtn.addEventListener('click', (e) => { e.stopPropagation(); langSelector.classList.toggle('active'); });
+            document.querySelectorAll('.lang-option').forEach(opt => {
+                opt.addEventListener('click', async (e) => { await setLanguage(opt.getAttribute('data-lang')); langSelector.classList.remove('active'); });
+            });
+            document.addEventListener('click', (e) => { if (!langSelector.contains(e.target)) langSelector.classList.remove('active'); });
+        }
+        const savedLang = localStorage.getItem('kb_lang');
+        if (savedLang && translations[savedLang]) setLanguage(savedLang); else setLanguage('en');
+        
+        function orderPlan(planName) { window.open('https://t.me/rankflood', '_blank'); }
+        
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) navbar.classList.add('scrolled'); else navbar.classList.remove('scrolled');
+            document.querySelectorAll('.scroll-reveal').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 100) el.classList.add('revealed');
+            });
+        });
+        document.querySelectorAll('.scroll-reveal').forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('revealed'); });
+    </script>
+</body>
+</html>
