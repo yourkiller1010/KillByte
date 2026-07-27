@@ -1,22 +1,7 @@
 // ==UserScript==
-// @name        SL TECH BD V2.6 - Verified Gate (Avatar URL FINAL)
-// @version     2.6-avatar-final-safe
-// @description Same script + Avatar URL support (row + popup). No removals.
-// @author      SL (modified)
-// @match       *://market-qx.trade/*
-// @match       *://market-qx.pro/*
-// @match       *://qxbroker.com/*
-// @grant       none
-// ==/UserScript==
-
-/* =========================
-   ORIGINAL FILE PRESERVED
-   ========================= */
-
-// ==UserScript==
-// @name        SL TECH BD V2.6 - Verified Gate (Verify First Then Run)
-// @version     2.6-verified-gate
-// @description Require license verification first; on success run the original SL TECH BD script.
+// @name        SL TECH BD V2.6 - Verified Gate (Static Key)
+// @version     2.6-static-key
+// @description Same script + Avatar URL support + License Key (No Firebase)
 // @author      SL (modified)
 // @match       *://market-qx.trade/*
 // @match       *://market-qx.pro/*
@@ -28,41 +13,7 @@
   'use strict';
 
   /* -------------------------
-     Firebase config (unchanged)
-     ------------------------- */
-  const firebaseConfig = {
-    apiKey: "AIzaSyDQgr_htCWmBNAoiA3DhmPPrp_XX72O-B0",
-    authDomain: "bookmark-311c9.firebaseapp.com",
-    databaseURL: "https://bookmark-311c9-default-rtdb.firebaseio.com",
-    projectId: "bookmark-311c9",
-    storageBucket: "bookmark-311c9.firebasestorage.app",
-    messagingSenderId: "143051808970",
-    appId: "1:143051808970:web:1c4d0b30b8d3b490c85433",
-    measurementId: "G-N9T7PNS4BY"
-  };
-
-  /* -------------------------
-     Load Firebase libs, then call callback
-     ------------------------- */
-  function loadFirebase(callback) {
-    // If firebase already on page, try to init right away
-    if (window.firebase && window.firebase.firestore) {
-      try { firebase.initializeApp(firebaseConfig); } catch (e) {}
-      return callback();
-    }
-    const appScript = document.createElement("script");
-    appScript.src = "https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js";
-    appScript.onload = () => {
-      const firestoreScript = document.createElement("script");
-      firestoreScript.src = "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js";
-      firestoreScript.onload = callback;
-      document.body.appendChild(firestoreScript);
-    };
-    document.body.appendChild(appScript);
-  }
-
-  /* -------------------------
-     Create verify UI and return controls
+     Create verify UI and return controls (same as before)
      ------------------------- */
   function createUserPanel() {
     const container = document.createElement("div");
@@ -143,11 +94,9 @@
   }
 
   /* -------------------------
-     initLicenseVerification: verifies then calls onSuccess()
+     initLicenseVerification: static key check
      ------------------------- */
   function initLicenseVerification(onSuccess) {
-    try { firebase.initializeApp(firebaseConfig); } catch (e) {}
-    const db = firebase.firestore();
     const { input, button, message, container, activeDevicesDisplay, uniqueDeviceID } = createUserPanel();
 
     function displayError(text) {
@@ -167,65 +116,30 @@
         displayError("Please enter a license key.");
         return;
       }
-      db.collection("licenses").where("licenseKey","==",licenseKey).get().then(function(querySnapshot){
-        if (querySnapshot.empty) {
-          displayError("Invalid license!");
-        } else {
-          querySnapshot.forEach(async (doc) => {
-            const lic = doc.data();
-            const id = doc.id;
-            if(lic.status === "Blocked") {
-              displayError("License is blocked!");
-              activeDevicesDisplay.innerHTML = `Active Devices: ${lic.devices?.length || 0} / ${lic.deviceLimit}`;
-              return;
-            }
-            let deviceList = lic.devices || [];
-            if (!deviceList.includes(uniqueDeviceID)) {
-              deviceList.push(uniqueDeviceID);
-            }
-            let updatedDevices = deviceList.length;
-            let newStatus = (updatedDevices > lic.deviceLimit) ? "Blocked" : "Active";
-            if(newStatus === "Blocked") {
-              displayError("Device limit exceeded! License blocked.");
-            } else {
-              displaySuccess("License Verified!");
-              setTimeout(()=>{
-                document.title = "Live trading | Quotex";
-              },50);
-            }
-            // update record
-            await db.collection("licenses").doc(id).update({
-              activeDevices: updatedDevices,
-              status: newStatus,
-              devices: deviceList
-            }).catch(e => console.error("update error", e));
 
-            activeDevicesDisplay.innerHTML = `Active Devices: ${updatedDevices} / ${lic.deviceLimit}`;
+      // 🔑 আপনার নিজের লাইসেন্স কী/কীসমূহ এখানে বসান
+      const VALID_KEYS = ["SLTECH-2024", "QXPRO-ADMIN", "mySecret123"];
 
-            if(newStatus === "Active") {
-              // remove UI and proceed
-              setTimeout(() => {
-                // ===== PREVENT RELOAD ON VERIFY =====
-                try{
-                  window.onbeforeunload = null;
-                }catch(e){}
-                container.remove();
-                setTimeout(()=>{
-                  autoTriggerBalanceDropdown();
-                  scheduleFastUIUpdate();
-                },300);
-                try { onSuccess(); } catch(e){ console.error("onSuccess error", e); }
-              }, 700);
-            }
-          });
-        }
-      }).catch(function(err){
-        console.error(err);
-        displayError("Error verifying license.");
-      });
+      if (!VALID_KEYS.includes(licenseKey)) {
+        displayError("Invalid license key!");
+        return;
+      }
+
+      // ✅ লাইসেন্স সঠিক
+      displaySuccess("License Verified!");
+      setTimeout(() => { document.title = "Live trading | Quotex"; }, 50);
+
+      setTimeout(() => {
+        try { window.onbeforeunload = null; } catch (e) {}
+        container.remove();
+        setTimeout(() => {
+          autoTriggerBalanceDropdown();
+          scheduleFastUIUpdate();
+        }, 300);
+        try { onSuccess(); } catch (e) { console.error("onSuccess error", e); }
+      }, 700);
     });
 
-    // allow Enter to submit
     input.addEventListener("keydown", function(e) {
       if (e.key === "Enter") {
         e.preventDefault();
@@ -304,7 +218,6 @@
     );
     if (!popup) return;
 
-    // যদি loader থাকে → wait
     if (
       popup.querySelector(
         '.---react-features-Sidepanel-LeaderBoard-Information-styles-module__loader--'
@@ -318,8 +231,7 @@
   }
     
   /* -------------------------
-     MAIN SCRIPT: original behavior moved inside runMain()
-     (All original helpers and features placed here)
+     MAIN SCRIPT (unchanged)
      ------------------------- */
   function runMain() {
 
@@ -357,9 +269,6 @@
         subtree: true
       });
     })();
-
-
-    // --- Start of original script content ---
 
     /* -------------------------
        Helper: host-aware paths for multiple domains
@@ -707,22 +616,6 @@
         const row = rows[targetIndex];
         if (!originalRows[targetIndex]) originalRows[targetIndex] = row.innerHTML;
 
-/* FLAG DISABLED FOR ROW
-const flagSVG = row.querySelector(
-  '.---react-features-Sidepanel-LeaderBoard-styles-module__item--8FRDh-block svg.flag'
-);
-const flagUSE = flagSVG?.querySelector('use');
-if (flagSVG && flagUSE && user.flagCode) {
-  flagSVG.setAttribute('class', `flag flag-${user.flagCode}`);
-  try {
-    flagUSE.setAttribute(
-      'xlink:href',
-      `/profile/images/flags.svg#flag-${user.flagCode}`
-    );
-  } catch(e){}
-}
-*/
-
         const avatarDiv = row.querySelector('.---react-features-Sidepanel-LeaderBoard-styles-module__block--zCluU');
         if (avatarDiv) {
           avatarDiv.innerHTML = `
@@ -1012,13 +905,11 @@ if (flagSVG && flagUSE && user.flagCode) {
   },800);
 
   /* -------------------------
-     Entry point: show verify UI first, then run main on success
+     Entry point: call verification directly, no Firebase
      ------------------------- */
-  loadFirebase(function() {
-    // show verification UI, and on success call runMain()
-    initLicenseVerification(runMain);
-  });
+  initLicenseVerification(runMain);
 
+  // BAKI SOB PATCH AGER MOTO
 
 // ===== SL PATCH: Sync popup name to position header ID =====
 (function syncHeaderNameFromPopup(){
@@ -1320,7 +1211,6 @@ if (flagSVG && flagUSE && user.flagCode) {
 ================================ */
 (function(){
 
-  // ✅ STEP 3 — এইখানেই বসাবে (EXACT PLACE)
   function moneyFmt(num){
     return Number(num).toLocaleString("en-US", {
       minimumFractionDigits: 2,
@@ -1452,8 +1342,8 @@ if (flagSVG && flagUSE && user.flagCode) {
     if(values.length >= 6){
       values[0].textContent = stats.trades;
       values[1].textContent = stats.profitable;
-      values[2].textContent = `$${moneyFmt(profit)}`; // PROFIT xx,xxx.xx
-      values[3].textContent = `$${stats.avg}`;        // AVG xx.xx
+      values[2].textContent = `$${moneyFmt(profit)}`;
+      values[3].textContent = `$${stats.avg}`;
       values[4].textContent = `$${moneyFmt(
         parseFloat(stats.min.replace(/,/g, ""))
       )}`;
@@ -1463,14 +1353,12 @@ if (flagSVG && flagUSE && user.flagCode) {
       )}`;
     }
 
-    /* ===== LEVEL ICON SYNC (USERMENU → ROW POPUP) ===== */
+    /* ===== LEVEL ICON SYNC ===== */
     try {
-      // usermenu dropdown level icon
       const userLevelUse = document.querySelector(
         '.---react-features-Usermenu-Dropdown-styles-module__levelIcon--lmj_k svg use'
       );
 
-      // row popup level icon
       const popupLevelUse = popup.querySelector(
         '.---react-features-Sidepanel-LeaderBoard-Information-styles-module__status--xjubR svg use'
       );
