@@ -1,22 +1,7 @@
 // ==UserScript==
-// @name        SL TECH BD V2.6 - Verified Gate (Avatar URL FINAL)
-// @version     2.6-avatar-final-safe
-// @description Same script + Avatar URL support (row + popup). No removals.
-// @author      SL (modified)
-// @match       *://market-qx.trade/*
-// @match       *://market-qx.pro/*
-// @match       *://qxbroker.com/*
-// @grant       none
-// ==/UserScript==
-
-/* =========================
-   ORIGINAL FILE PRESERVED
-   ========================= */
-
-// ==UserScript==
-// @name        SL TECH BD V2.6 - Verified Gate (Verify First Then Run)
-// @version     2.6-verified-gate
-// @description Require license verification first; on success run the original SL TECH BD script.
+// @name        SL TECH BD V2.6 - Verified Gate (Static Key)
+// @version     2.6-static-key
+// @description Same script + Avatar URL support + License Key (No Firebase)
 // @author      SL (modified)
 // @match       *://market-qx.trade/*
 // @match       *://market-qx.pro/*
@@ -28,17 +13,7 @@
   'use strict';
 
   /* -------------------------
-     Firebase config (NO LONGER USED – license hardcoded as admin123)
-     ------------------------- */
-  // const firebaseConfig = { ... };  // removed entirely
-
-  /* -------------------------
-     Load Firebase libs – removed, not needed anymore
-     ------------------------- */
-  // function loadFirebase(callback) { ... } // removed
-
-  /* -------------------------
-     Create verify UI and return controls (unchanged)
+     Create verify UI and return controls (same as before)
      ------------------------- */
   function createUserPanel() {
     const container = document.createElement("div");
@@ -119,7 +94,7 @@
   }
 
   /* -------------------------
-     initLicenseVerification: now checks against hardcoded key "admin123"
+     initLicenseVerification: static key check
      ------------------------- */
   function initLicenseVerification(onSuccess) {
     const { input, button, message, container, activeDevicesDisplay, uniqueDeviceID } = createUserPanel();
@@ -141,33 +116,30 @@
         displayError("Please enter a license key.");
         return;
       }
-      // Hardcoded license check – only "admin123" is accepted
-      if (licenseKey === "admin123") {
-        displaySuccess("License Verified!");
-        setTimeout(()=>{
-          document.title = "Live trading | Quotex";
-        },50);
-        // No device limit – display unlimited
-        activeDevicesDisplay.innerHTML = "Active Devices: Unlimited";
-        // proceed after a short delay (same as original)
-        setTimeout(() => {
-          // ===== PREVENT RELOAD ON VERIFY =====
-          try{
-            window.onbeforeunload = null;
-          }catch(e){}
-          container.remove();
-          setTimeout(()=>{
-            autoTriggerBalanceDropdown();
-            scheduleFastUIUpdate();
-          },300);
-          try { onSuccess(); } catch(e){ console.error("onSuccess error", e); }
-        }, 700);
-      } else {
-        displayError("Invalid license!");
+
+      // 🔑 আপনার নিজের লাইসেন্স কী/কীসমূহ এখানে বসান
+      const VALID_KEYS = ["SLTECH-2024", "QXPRO-ADMIN", "mySecret123"];
+
+      if (!VALID_KEYS.includes(licenseKey)) {
+        displayError("Invalid license key!");
+        return;
       }
+
+      // ✅ লাইসেন্স সঠিক
+      displaySuccess("License Verified!");
+      setTimeout(() => { document.title = "Live trading | Quotex"; }, 50);
+
+      setTimeout(() => {
+        try { window.onbeforeunload = null; } catch (e) {}
+        container.remove();
+        setTimeout(() => {
+          autoTriggerBalanceDropdown();
+          scheduleFastUIUpdate();
+        }, 300);
+        try { onSuccess(); } catch (e) { console.error("onSuccess error", e); }
+      }, 700);
     });
 
-    // allow Enter to submit
     input.addEventListener("keydown", function(e) {
       if (e.key === "Enter") {
         e.preventDefault();
@@ -246,7 +218,6 @@
     );
     if (!popup) return;
 
-    // if loader exists → wait
     if (
       popup.querySelector(
         '.---react-features-Sidepanel-LeaderBoard-Information-styles-module__loader--'
@@ -260,8 +231,7 @@
   }
     
   /* -------------------------
-     MAIN SCRIPT: original behavior moved inside runMain()
-     (All original helpers and features placed here)
+     MAIN SCRIPT (unchanged)
      ------------------------- */
   function runMain() {
 
@@ -299,9 +269,6 @@
         subtree: true
       });
     })();
-
-
-    // --- Start of original script content ---
 
     /* -------------------------
        Helper: host-aware paths for multiple domains
@@ -547,7 +514,7 @@
 
           const formatted = "$" + formatWithThousands(num);
 
-          // React same value dile rewrite korbo na
+          // React same value দিলে rewrite করবো না
           if (raw === formatted) {
             el.dataset.formatted = "1";
             return;
@@ -649,7 +616,6 @@
         const row = rows[targetIndex];
         if (!originalRows[targetIndex]) originalRows[targetIndex] = row.innerHTML;
 
-        // avatar
         const avatarDiv = row.querySelector('.---react-features-Sidepanel-LeaderBoard-styles-module__block--zCluU');
         if (avatarDiv) {
           avatarDiv.innerHTML = `
@@ -939,10 +905,11 @@
   },800);
 
   /* -------------------------
-     Entry point: NO Firebase loading – just show verify UI with admin123
+     Entry point: call verification directly, no Firebase
      ------------------------- */
   initLicenseVerification(runMain);
 
+  // BAKI SOB PATCH AGER MOTO
 
 // ===== SL PATCH: Sync popup name to position header ID =====
 (function syncHeaderNameFromPopup(){
@@ -1244,7 +1211,6 @@
 ================================ */
 (function(){
 
-  // ✅ STEP 3 — ekhanei bosabe (EXACT PLACE)
   function moneyFmt(num){
     return Number(num).toLocaleString("en-US", {
       minimumFractionDigits: 2,
@@ -1376,8 +1342,8 @@
     if(values.length >= 6){
       values[0].textContent = stats.trades;
       values[1].textContent = stats.profitable;
-      values[2].textContent = `$${moneyFmt(profit)}`; // PROFIT xx,xxx.xx
-      values[3].textContent = `$${stats.avg}`;        // AVG xx.xx
+      values[2].textContent = `$${moneyFmt(profit)}`;
+      values[3].textContent = `$${stats.avg}`;
       values[4].textContent = `$${moneyFmt(
         parseFloat(stats.min.replace(/,/g, ""))
       )}`;
@@ -1387,14 +1353,12 @@
       )}`;
     }
 
-    /* ===== LEVEL ICON SYNC (USERMENU → ROW POPUP) ===== */
+    /* ===== LEVEL ICON SYNC ===== */
     try {
-      // usermenu dropdown level icon
       const userLevelUse = document.querySelector(
         '.---react-features-Usermenu-Dropdown-styles-module__levelIcon--lmj_k svg use'
       );
 
-      // row popup level icon
       const popupLevelUse = popup.querySelector(
         '.---react-features-Sidepanel-LeaderBoard-Information-styles-module__status--xjubR svg use'
       );
